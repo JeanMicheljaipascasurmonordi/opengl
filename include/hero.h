@@ -4,7 +4,7 @@
 #include <iostream>
 
 class Hero{
-	int x,y,z;
+	Position Position;
 	int angle;
 	int pv;
 	int damage;
@@ -13,17 +13,14 @@ class Hero{
 	public:
 		Hero(Niveau Niveau);
 		void setAngle(int angle);
-		void setPosition(int x, int y, int z);
 		void setPv(int pv);
 		void setDamage(int damage);
 		void setNbrFan(int nbrFan);
-		int getX();
-		int getY();
-		int getZ();
 		int getAngle();
 		int getPv();
 		int getDamage();
 		int getNbrFan();
+		void attacked(Ennemi ennemi);
 };
 
 #endif
