@@ -7,6 +7,8 @@
 #include <GL/gl.h>
 #include <string>
 #include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
+
 
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
@@ -38,6 +40,21 @@ int main(int argc, char **argv) {
     initGlew();
     glEnable(GL_DEPTH_TEST);
 
+    //Init Son
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+        std::cout << "erreur Initialisation Mixer" << std::endl;
+
+    Mix_Music *musique = NULL;
+    musique = Mix_LoadMUS("cindysander_papillondelumiere.mp3");
+    if(musique == NULL)
+        std::cout << "erreur repertoire musique" << std::endl;
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+    Mix_PlayMusic(musique, -1);
+
+    Mix_AllocateChannels(32);
+    Mix_Chunk *cindyattack = Mix_LoadWAV("cindyattack.ogg");
+    if(cindyattack == NULL)
+        std::cout << Mix_GetError() << std::endl;
 
     //===== Construction du monde =====//
     Cube3D cube;
@@ -62,6 +79,16 @@ int main(int argc, char **argv) {
         while(windowManager.pollEvent(e)) {
             if(e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
+            }
+            switch(e.type) {
+                case SDL_KEYDOWN:
+                    switch( e.key.keysym.sym ){
+                        case SDLK_SPACE:
+                            Mix_PlayChannel(-1, cindyattack, 0);
+                            std::cout << "espace" << std::endl;
+                            break;
+                    }
+                break;
             }
         }
 
@@ -90,6 +117,10 @@ int main(int argc, char **argv) {
     // TODO
     //glDeleteBuffers(1, &vbo);
     //glDeleteVertexArrays(1, &vao);
+
+    Mix_FreeChunk(cindyattack);
+    Mix_FreeMusic(musique);
+    Mix_CloseAudio();
 
     return 0;
 }
