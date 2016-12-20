@@ -10,7 +10,6 @@ class Mur{
 	public:
 		Mur(int x, int y, int z, int angle);
 		void setAngle(int angle);
-		void setPosition(int x, int y, int z);
 		int getAngle();
 
 };

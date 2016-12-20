@@ -16,8 +16,7 @@ class Niveau{
 	public:
 		Niveau(string file);
 		int getFanNeeded();
-		Position getPositionDebut();
-		Position getPositionFin();
+		
 		void deleteLoot(int id);
 		void deleteEnnemi(int id);
 };
