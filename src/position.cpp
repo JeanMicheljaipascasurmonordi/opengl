@@ -2,38 +2,18 @@
 
 #include <iostream>
 
-Position::Position(int x, int y, int z){
-	this->x = x;
-	this->y = y;
-	this->z = z;
+Position initPosition(){
+	Position p;
+	p.x = 0;
+	p.y = 0;
+	p.z = 0;
+	return p;
 }
 
-int Position::getX(){
-	return x;
-}
-
-int Position::getX(){
-	return x;
-}
-
-int Position::getX(){
-	return x;
-}
-
-void setX(int x){
-	this->x = x;
-}
-
-void setY(int y){
-	this->y = y;
-}
-
-void setZ(int z){
-	this->z = z;
-}
-
-bool Position::operator==(Position p2){
-	if (x==p2.X && y==p2.Y && z==p2.z) return true;
-	else return false;
-
+Position newPosition(int coordx, int coordy, int coordz){
+	Position p;
+	p.x = coordx;
+	p.y = coordy;
+	p.z = coordz;
+	return p;
 }

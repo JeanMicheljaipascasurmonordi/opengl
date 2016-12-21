@@ -1,7 +1,7 @@
 #ifndef _ENNEMI_H_
 #define _ENNEMI_H_
 #include "../include/position.h"
-#include "../include/hero.h"
+//#include "../include/hero.h"
 #include <iostream>
 
 class Ennemi{
@@ -23,7 +23,7 @@ class Ennemi{
 		void setPv(int pv);
 		void setAngle(int angle);
 
-		void attacked(Hero hero);
+		//void attacked(Hero hero);
 };
 
 #endif

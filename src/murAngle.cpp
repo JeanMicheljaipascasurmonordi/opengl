@@ -3,7 +3,7 @@
 
 MurAngle::MurAngle(Position position, int angle){
 	this->position = position;
-	this->angle = angle
+	this->angle = angle;
 }
 
 void MurAngle::setAngle(int angle){

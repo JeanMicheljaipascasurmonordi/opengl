@@ -33,7 +33,6 @@ void Ennemi::setPv(int pv){
 	this->pv = pv;
 }
 
-void Ennemi::attacked(Hero hero){
-	int perte = hero.getDamage
-	pv = pv - perte;
-}
+/*void Ennemi::attacked(Hero hero){
+	 pv = pv - hero.getDamage();
+}*/
