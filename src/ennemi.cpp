@@ -5,7 +5,7 @@
 Ennemi::Ennemi(int id, Position position, int angle, int pv, int damage, int fanDrop){
 	this->id = id;
 	this->position = position;
-	this->angle = angle; 
+	this->angle = angle;
 	this->pv = pv;
 	this->damage = damage;
 	this->fanDrop = fanDrop;
@@ -33,7 +33,6 @@ void Ennemi::setPv(int pv){
 	this->pv = pv;
 }
 
-void Ennemi::attacked(Hero hero){
-	int perte = hero.getDamage
-	pv = pv - perte;
-}
+/*void Ennemi::attacked(Hero hero){
+	 pv = pv - hero.getDamage();
+}*/

@@ -1,43 +1,44 @@
 #include "../include/hero.h"
 
+
 using namespace std;
 
-Hero::Hero(Niveau niveau){
-	this->position = niveau.positionDebut;
-	this->angle = 0;
-	this->pv = 10;
-	this->damage = 1;
-	this->nbrFan=0;
+Hero::Hero(){
+    this->position = newPosition(0,0,0);
+    this->angle = 0;
+    this->pv = 10;
+    this->damage = 1;
+    this->nbrFan=0;
 }
 
 
 void Hero::setAngle(int angle){
-	this->angle = angle;
+    this->angle = angle;
 }
 void Hero::setPv(int pv){
-	this->pv = pv;
+    this->pv = pv;
 }
 void Hero::setDamage(int damage){
-	this->damage = damage;
+    this->damage = damage;
 }
 void Hero::setNbrFan(int nbFan){
-	this->nbrFan = nbrFan;
+    this->nbrFan = nbrFan;
 }
 
 
 int Hero::getAngle(){
-	return(angle);
+    return(angle);
 }
 int Hero::getPv(){
-	return pv;
+    return pv;
 }
 int Hero::getDamage(){
-	return damage;
+    return damage;
 }
 int Hero::getNbrFan(){
-	return nbrFan;
+    return nbrFan;
 }
-void Hero::attacked(Ennemi ennemi){
-	int perte = ennemi.getDamage();
-	this->pv = pv - perte;
+
+/*void Hero::attacked(Ennemi ennemi){
+	this->pv = pv - ennemi.getDamage();
 }*/
