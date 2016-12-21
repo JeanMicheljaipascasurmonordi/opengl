@@ -1,6 +1,7 @@
-#include "hero.h"
-#include "ennemi.h"
-#include "niveau.h"
+/*
+#include "../include/hero.h"
+#include "../include/ennemi.h"
+#include "../include/niveau.h"
 
 using namespace std;
 
@@ -42,4 +43,4 @@ int Hero::getNbrFan(){
 void Hero::attacked(Ennemi ennemi){
 	int perte = ennemi.getDamage();
 	this->pv = pv - perte;
-}
+}*/

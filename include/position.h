@@ -1,3 +1,4 @@
+/*
 #ifndef _POSITION_H_
 #define _POSITION_H_
 
@@ -16,4 +17,4 @@ class Position{
 		void setZ();
 };
 
-#endif
+#endif*/

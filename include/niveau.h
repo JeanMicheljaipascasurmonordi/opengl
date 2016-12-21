@@ -1,8 +1,13 @@
+/*
 #ifndef _NIVEAU_H_
 #define _NIVEAU_H_
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include "ennemi.h"
+#include "mur.h"
+#include "loot.h"
 using namespace std;
 
 class Niveau{
@@ -23,4 +28,4 @@ class Niveau{
 
 void drawLevel();
 
-#endif
+#endif*/

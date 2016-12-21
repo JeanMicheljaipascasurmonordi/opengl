@@ -1,10 +1,14 @@
+/*
 #ifndef _ENNEMI_H_
 #define _ENNEMI_H_
 
 #include <iostream>
 
+#include "hero.h"
+
 class Ennemi{
 	int id;
+	Hero hero;
 	Position position;
 	int angle;
 	int pv;
@@ -16,7 +20,9 @@ class Ennemi{
 		int getId();
 		
 		int get();
-		int getId();
+		//int getId();
 
 		void attacked(Hero hero);
-}
+};
+
+#endif*/
