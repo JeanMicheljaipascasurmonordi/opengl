@@ -23,14 +23,12 @@ public:
     Position positionDebut;
     Position positionFin;
 
-
 public:
     Niveau(char* file);
     int getFanNeeded();
 
     void deleteLoot(int id);
     void deleteEnnemi(int id);
-
 };
 
 

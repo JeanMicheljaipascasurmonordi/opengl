@@ -19,13 +19,13 @@ public:
 
     //void attacked(Hero hero);
 
+
     int getAngle();
     int getPv();
     int getDamage();
     int getFanDrop();
     void setPv(int pv);
     void setAngle(int angle);
-
 
 };
 

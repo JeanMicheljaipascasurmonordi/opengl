@@ -3,7 +3,7 @@
 
 Mur::Mur(Position position, int angle){
 	this->position = position;
-	this->angle = angle
+	this->angle = angle;
 }
 
 void Mur::setAngle(int angle){

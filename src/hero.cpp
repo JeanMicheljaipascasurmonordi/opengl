@@ -4,11 +4,11 @@
 using namespace std;
 
 Hero::Hero(){
-    this->position = newPosition(0,0,0);
-    this->angle = 0;
-    this->pv = 10;
-    this->damage = 1;
-    this->nbrFan=0;
+	this->position = newPosition(0,0,0);
+	this->angle = 0;
+	this->pv = 10;
+	this->damage = 1;
+	this->nbrFan=0;
 }
 
 
