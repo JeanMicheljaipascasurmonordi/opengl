@@ -1,31 +1,36 @@
-/*
 #ifndef _NIVEAU_H_
 #define _NIVEAU_H_
-
+#include "../include/mur.h"
+#include "../include/murAngle.h"
+#include "../include/murCulDeSac.h"
+#include "../include/position.h"
+#include "../include/loot.h"
+#include "../include/ennemi.h"
 #include <iostream>
-#include <string>
+#include <fstream>
 #include <vector>
-#include "ennemi.h"
-#include "mur.h"
-#include "loot.h"
+#include <string>
 using namespace std;
 
 class Niveau{
-	int fanNeeded;
-	vector<Mur> murs;
-	vector<Loot> loots;
-	vector<Ennemi> ennemis;
-	Position positionDebut;
-	Position positionFin;
+public:
+    int fanNeeded;
+    vector<Mur> murs;
+    vector<MurAngle> mursAngles;
+    vector<MurCulDeSac> mursCDS;
+    vector<Loot> loots;
+    vector<Ennemi> ennemis;
+    Position positionDebut;
+    Position positionFin;
 
-	public:
-		Niveau(string file);
-		int getFanNeeded();
-		
-		void deleteLoot(int id);
-		void deleteEnnemi(int id);
+public:
+    Niveau(string file);
+    int getFanNeeded();
+
+    void deleteLoot(int id);
+    void deleteEnnemi(int id);
 };
 
-void drawLevel();
 
-#endif*/
+
+#endif

@@ -3,12 +3,12 @@
 #include <glimac/SDLWindowManager.hpp>
 #include <GL/glew.h>
 #include <iostream>
+#include <vector>
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <string>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
-
 
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
@@ -20,7 +20,16 @@
 #include "../include/Cube3D.h"
 #include "../include/Sphere3D.h"
 
+#include "../include/mur.h"
+#include "../include/murAngle.h"
+#include "../include/murCulDeSac.h"
+#include "../include/position.h"
+#include "../include/loot.h"
+#include "../include/ennemi.h"
+#include "../include/niveau.h"
+
 using namespace glimac;
+//using namespace std;
 
 void initGlew() {
     // Initialize glew for OpenGL3+ support
@@ -32,6 +41,7 @@ void initGlew() {
 }
 
 int main(int argc, char **argv) {
+    Niveau niveau = Niveau("niveautest.txt");
 
     std::cout << "test log console" << std::endl;
 

@@ -1,22 +1,20 @@
-/*
 #ifndef _LOOT_H_
 #define _LOOT_H_
-
+#include "../include/position.h"
 #include <iostream>
-#include "position.h"
 
 class Loot{
-	int ID;
-	Position position;
-	int nbrFan;
+    int ID;
+    Position position;
+    int nbrFan;
 
-	public:
-		Loot(int ID, Position position, int nbrFan);
-		int getID();
-		int getnbrFan();
+public:
+    Loot(int ID, Position position, int nbrFan);
+    int getID();
+    int getNbrFan();
 
 };
 
-void drawLoot();
 
-#endif*/
+
+#endif

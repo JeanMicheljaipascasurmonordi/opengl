@@ -1,7 +1,4 @@
-/*
 #include "../include/hero.h"
-#include "../include/ennemi.h"
-#include "../include/niveau.h"
 
 using namespace std;
 
@@ -10,7 +7,7 @@ Hero::Hero(Niveau niveau){
 	this->angle = 0;
 	this->pv = 10;
 	this->damage = 1;
-	this->nbFan=0;
+	this->nbrFan=0;
 }
 
 
