@@ -1,5 +1,5 @@
 #include "../include/hero.h"
-#include "../include/position.h"
+
 
 using namespace std;
 
@@ -38,6 +38,7 @@ int Hero::getDamage(){
 int Hero::getNbrFan(){
 	return nbrFan;
 }
+
 /*void Hero::attacked(Ennemi ennemi){
 	this->pv = pv - ennemi.getDamage();
 }*/

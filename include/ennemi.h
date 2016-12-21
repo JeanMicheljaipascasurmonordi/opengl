@@ -5,25 +5,28 @@
 #include <iostream>
 
 class Ennemi{
-	int id;
-	Position position;
-	int angle;
-	int pv;
-	int damage;
-	int fanDrop;
+    int id;
+    Position position;
+    int angle;
+    int pv;
+    int damage;
+    int fanDrop;
 
-	public: 
-		Ennemi(int id, Position position, int angle, int pv, int damage, int fanDrop);
-		int getId();
-		
-		int getAngle();
-		int getPv();
-		int getDamage();
-		int getFanDrop();
-		void setPv(int pv);
-		void setAngle(int angle);
+public:
+    Ennemi(int id, Position position, int angle, int pv, int damage, int fanDrop);
+    int getId();
 
-		//void attacked(Hero hero);
+
+	//void attacked(Hero hero);
+
+    int getAngle();
+    int getPv();
+    int getDamage();
+    int getFanDrop();
+    void setPv(int pv);
+    void setAngle(int angle);
+
+ 
 };
 
 #endif

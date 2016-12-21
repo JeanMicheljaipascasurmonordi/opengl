@@ -67,17 +67,20 @@ int main(int argc, char **argv) {
         std::cout << Mix_GetError() << std::endl;
 
     //===== Construction du monde =====//
-    Cube3D cube;
+    Cube3D cube1, cube2, cube3, cube4;
     //Sphere3D sphere(windowManager);
-    cube.setTranslation( 0, 0, -5 );
+    cube1.setTranslation( 0, 0, -5 );
+    cube2.setTranslation( 0, 0, -6 );
+    cube4.setTranslation( 1, 0, -7 );
+    cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );
 
-    Cube3D c1,c2,c3;
+/*    Cube3D c1,c2,c3;
     c1.setTranslation( -1, -2, -5 );
     c2.setTranslation( 0, -2, -5 );
     c3.setTranslation( 1, -2, -5 );
 
     Triangle3D t;
-    t.setTranslation( 0,1.35,-3 );
+    t.setTranslation( 0,1.35,-3 );*/
 
 
 
@@ -93,7 +96,31 @@ int main(int argc, char **argv) {
             switch(e.type) {
                 case SDL_KEYDOWN:
                     switch( e.key.keysym.sym ){
-                        case SDLK_SPACE:
+                        case SDLK_w:
+                            Mix_PlayChannel(-1, cindyattack, 0);
+                            std::cout << "z" << std::endl;
+                            break;
+                        case SDLK_s:
+                            Mix_PlayChannel(-1, cindyattack, 0);
+                            std::cout << "s" << std::endl;
+                            break;
+                        case SDLK_a:
+                            Mix_PlayChannel(-1, cindyattack, 0);
+                            std::cout << "q" << std::endl;
+                            break;
+                        case SDLK_d:
+                            Mix_PlayChannel(-1, cindyattack, 0);
+                            std::cout << "d" << std::endl;
+                            break;
+                        case SDLK_RIGHT:
+                            Mix_PlayChannel(-1, cindyattack, 0);
+                            std::cout << "RIGHT" << std::endl;
+                            break;
+                        case SDLK_LEFT:
+                            Mix_PlayChannel(-1, cindyattack, 0);
+                            std::cout << "LEFT" << std::endl;
+                            break;
+                        case SDLK_SPACE: // Attaque
                             Mix_PlayChannel(-1, cindyattack, 0);
                             std::cout << "espace" << std::endl;
                             break;
@@ -103,13 +130,13 @@ int main(int argc, char **argv) {
         }
 
         // Jeu
-        cube.addRotation( glm::vec3(0, 1, 0), 0.025f );
+        /*cube.addRotation( glm::vec3(0, 1, 0), 0.025f );
         cube.addRotation( glm::vec3(1, 0, 0), 0.01f );
         cube.addRotation( glm::vec3(0, 0, 1), 0.015f );
         c1.addRotation( glm::vec3(1, 0, 0), 0.005f );
         c2.addRotation( glm::vec3(1, 0, 0), 0.005f );
         c3.addRotation( glm::vec3(1, 0, 0), 0.005f );
-        t.addRotation( glm::vec3(0, 1, 0), 0.005f );
+        t.addRotation( glm::vec3(0, 1, 0), 0.005f );*/
 
         // Clear de la fenêtre avant le nouveau rendu
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

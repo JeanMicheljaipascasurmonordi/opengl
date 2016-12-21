@@ -6,11 +6,11 @@
 #include <iostream>
 
 class Hero{
-	Position position;
-	int angle;
-	int pv;
-	int damage;
-	int nbrFan;
+    Position position;
+    int angle;
+    int pv;
+    int damage;
+    int nbrFan;
 
 	public:
 		Hero();
@@ -23,6 +23,7 @@ class Hero{
 		int getDamage();
 		int getNbrFan();
 		//void attacked(Ennemi ennemi);
+
 };
 
 #endif

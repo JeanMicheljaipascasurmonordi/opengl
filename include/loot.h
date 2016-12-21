@@ -4,14 +4,14 @@
 #include <iostream>
 
 class Loot{
-	int ID;
-	Position position;
-	int nbrFan;
+    int ID;
+    Position position;
+    int nbrFan;
 
-	public:
-		Loot(int ID, Position position, int nbrFan);
-		int getID();
-		int getNbrFan();
+public:
+    Loot(int ID, Position position, int nbrFan);
+    int getID();
+    int getNbrFan();
 
 };
 
