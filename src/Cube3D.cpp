@@ -26,7 +26,6 @@ Cube3D::Cube3D() {
     Program program = loadProgram(applicationPath.dirPath() + "\\..\\..\\shaders\\color2D.vs.glsl",
                                   applicationPath.dirPath() + "\\..\\..\\shaders\\color2D.fs.glsl");
     program.use();
-
     // Matrice de transformation
     this->uModelMatrixID = glGetUniformLocation( program.getGLId(), "uModelMatrix" );
 
