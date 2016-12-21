@@ -1,0 +1,41 @@
+//nombre de fan nécessaire
+30
+
+//position de début
+0 0 0
+
+//position de la sortie
+20 10 1
+
+//nombre de mur
+10
+
+//position des murs (x, y, z, angle)
+1 10 1 45 
+2 45 1 0
+3 ...
+...
+
+//nombre de mur angle
+10
+
+//position des murs angle
+...
+
+//nombre de mur culdesac
+10
+
+//position des murs culdesac
+...
+
+//nombre d'ennemi
+5
+
+//position ennemis
+...
+
+//nombre de loots
+4
+
+//position des loots
+...

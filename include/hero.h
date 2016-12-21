@@ -1,17 +1,19 @@
 #ifndef _HERO_H_
 #define _HERO_H_
-
+#include "../include/position.h"
+#include "../include/ennemi.h"
+#include "../include/niveau.h"
 #include <iostream>
 
 class Hero{
-	Position Position;
+	Position position;
 	int angle;
 	int pv;
 	int damage;
 	int nbrFan;
 
 	public:
-		Hero(Niveau Niveau);
+		Hero(Niveau niveau);
 		void setAngle(int angle);
 		void setPv(int pv);
 		void setDamage(int damage);

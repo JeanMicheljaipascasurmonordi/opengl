@@ -1,4 +1,4 @@
-#include "murCulDeSac.h"
+#include "../include/murCulDeSac.h"
 #include <iostream>
 
 MurCulDeSac::MurCulDeSac(Position position, int angle){

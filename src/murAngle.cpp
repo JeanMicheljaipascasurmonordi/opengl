@@ -1,4 +1,4 @@
-#include "murAngle.h"
+#include "../include/murAngle.h"
 #include <iostream>
 
 MurAngle::MurAngle(Position position, int angle){

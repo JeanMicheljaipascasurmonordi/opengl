@@ -1,4 +1,4 @@
-#include "mur.h"
+#include "../include/mur.h"
 #include <iostream>
 
 Mur::Mur(Position position, int angle){

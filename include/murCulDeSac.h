@@ -1,6 +1,6 @@
 #ifndef _MURCULDESAC_H_
 #define _MURCULDESAC_H_
-
+#include "../include/position.h"
 #include <iostream>
 
 class MurCulDeSac{

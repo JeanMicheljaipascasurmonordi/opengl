@@ -1,6 +1,6 @@
 #ifndef _MURANGLE_H_
 #define _MURANGLE_H_
-
+#include "../include/position.h"
 #include <iostream>
 
 class MurAngle{

@@ -1,6 +1,6 @@
 #ifndef _MUR_H_
 #define _MUR_H_
-
+#include "../include/position.h"
 #include <iostream>
 
 class Mur{

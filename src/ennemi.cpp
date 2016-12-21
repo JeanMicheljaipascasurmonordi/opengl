@@ -1,4 +1,4 @@
-#include "ennemi.h"
+#include "../include/ennemi.h"
 
 #include <iostream>
 

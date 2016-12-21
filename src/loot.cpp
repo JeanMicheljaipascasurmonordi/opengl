@@ -1,4 +1,4 @@
-#include "loot.h"
+#include "../include/loot.h"
 
 #include <iostream>
 

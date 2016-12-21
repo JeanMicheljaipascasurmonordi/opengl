@@ -1,6 +1,6 @@
 #ifndef _LOOT_H_
 #define _LOOT_H_
-
+#include "../include/position.h"
 #include <iostream>
 
 class Loot{
