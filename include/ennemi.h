@@ -15,8 +15,12 @@ class Ennemi{
 		Ennemi(int id, Position position, int angle, int pv, int damage, int fanDrop);
 		int getId();
 		
-		int get();
-		int getId();
+		int getAngle();
+		int getPv();
+		int getDamage();
+		int getFanDrop();
+		void setPv(int pv);
+		void setAngle(int angle);
 
 		void attacked(Hero hero);
 }

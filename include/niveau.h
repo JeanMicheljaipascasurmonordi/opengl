@@ -21,6 +21,6 @@ class Niveau{
 		void deleteEnnemi(int id);
 };
 
-void drawLevel();
+
 
 #endif

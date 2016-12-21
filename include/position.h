@@ -11,9 +11,11 @@ class Position{
 		int getX();
 		int getY();
 		int getZ();
-		void setX();
-		void setY();
-		void setZ();
+		void setX(int x);
+		void setY(int y);
+		void setZ(int z);
+		bool operator==(Position p2);
+
 };
 
 #endif

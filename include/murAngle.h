@@ -1,14 +1,14 @@
-#ifndef _MUR_H_
-#define _MUR_H_
+#ifndef _MURANGLE_H_
+#define _MURANGLE_H_
 
 #include <iostream>
 
-class Mur{
+class MurAngle{
 	Position position;
 	int angle;
 
 	public:
-		Mur(Position position, int angle);
+		MurAngle(Position position, int angle);
 		void setAngle(int angle);
 		int getAngle();
 

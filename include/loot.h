@@ -5,16 +5,16 @@
 
 class Loot{
 	int ID;
-	Position Position;
+	Position position;
 	int nbrFan;
 
 	public:
-		Loot(int ID, Position Position, int nbrFan);
+		Loot(int ID, Position position, int nbrFan);
 		int getID();
-		int nbrFan();
+		int getNbrFan();
 
 };
 
-void drawLoot();
+
 
 #endif

@@ -1,14 +1,14 @@
-#ifndef _MUR_H_
-#define _MUR_H_
+#ifndef _MURCULDESAC_H_
+#define _MURCULDESAC_H_
 
 #include <iostream>
 
-class Mur{
+class MurCulDeSac{
 	Position position;
 	int angle;
 
 	public:
-		Mur(Position position, int angle);
+		MurCulDeSac(Position position, int angle);
 		void setAngle(int angle);
 		int getAngle();
 
