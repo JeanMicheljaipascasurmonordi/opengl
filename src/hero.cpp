@@ -1,6 +1,5 @@
 #include "../include/hero.h"
 
-
 using namespace std;
 
 Hero::Hero(){
