@@ -41,7 +41,6 @@ void initGlew() {
 }
 
 int main(int argc, char **argv) {
-    Niveau niveau = Niveau("niveautest.txt");
 
     std::cout << "test log console" << std::endl;
 
@@ -49,6 +48,7 @@ int main(int argc, char **argv) {
     SDLWindowManager windowManager(800, 800, "DungeonGL");
     initGlew();
     glEnable(GL_DEPTH_TEST);
+
 
     //Init Son
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
@@ -66,19 +66,21 @@ int main(int argc, char **argv) {
     if(cindyattack == NULL)
         std::cout << Mix_GetError() << std::endl;
 
+
+    Niveau niveau = Niveau("niveautest.txt");
+
     //===== Construction du monde =====//
-    Cube3D cube1, cube2, cube3, cube4;
+//    Cube3D cube1, cube2, cube3;
     //Sphere3D sphere(windowManager);
-    cube1.setTranslation( 0, 0, -5 );
-    cube2.setTranslation( 0, 0, -6 );
-    cube4.setTranslation( 1, 0, -7 );
-    cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );
+//    cube1.setTranslation( 0, 0, -5 );
+//    cube2.setTranslation( 0, 0, -6 );
+//    cube3.setTranslation( 1, 0, -7 );
+//    cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );
 
 /*    Cube3D c1,c2,c3;
     c1.setTranslation( -1, -2, -5 );
     c2.setTranslation( 0, -2, -5 );
     c3.setTranslation( 1, -2, -5 );
-
     Triangle3D t;
     t.setTranslation( 0,1.35,-3 );*/
 
@@ -125,7 +127,7 @@ int main(int argc, char **argv) {
                             std::cout << "espace" << std::endl;
                             break;
                     }
-                break;
+                    break;
             }
         }
 
@@ -143,7 +145,7 @@ int main(int argc, char **argv) {
 
         // Rendu des objets de la scene
         for ( std::vector<Object3D*>::const_iterator it = Object3D::getSceneObjects().begin() ;  it != Object3D::getSceneObjects().end() ; it++ ) {
-            (*it)->draw();
+            //(*it)->draw();
         }
 
         // Update the display

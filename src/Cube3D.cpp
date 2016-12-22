@@ -119,9 +119,9 @@ Cube3D::Cube3D() {
 
 void Cube3D::draw() {
 
-     /*********************************
-     * HERE SHOULD COME THE RENDERING CODE
-     *********************************/
+    /*********************************
+    * HERE SHOULD COME THE RENDERING CODE
+    *********************************/
 
     glm::mat4 projMatrix;
     projMatrix = glm::perspective<float>(glm::radians(70.f),1.0,0.1f,100.f);
