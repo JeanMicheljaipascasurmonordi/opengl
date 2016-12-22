@@ -3,9 +3,10 @@
 
 using namespace std;
 
-Niveau::Niveau(char* file){
+Niveau::Niveau(const char* file){
 	ifstream fileNiveau(file);
 	if(file){
+		cout<<"youpi";
 		fileNiveau >> fanNeeded;
 		int xDebut, yDebut, zDebut;
 		fileNiveau >> xDebut;

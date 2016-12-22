@@ -42,6 +42,7 @@ void initGlew() {
 
 int main(int argc, char **argv) {
     Niveau niveau = Niveau("niveautest.txt");
+    std::cout<<niveau.getFanNeeded();
 
     std::cout << "test log console" << std::endl;
 
@@ -66,14 +67,13 @@ int main(int argc, char **argv) {
     if(cindyattack == NULL)
         std::cout << Mix_GetError() << std::endl;
 
-    //===== Construction du monde =====//
-    Cube3D cube1, cube2, cube3, cube4;
+   //===== Construction du monde =====//
+    Cube3D cube1, cube2, cube3;
     //Sphere3D sphere(windowManager);
     cube1.setTranslation( 0, 0, -5 );
     cube2.setTranslation( 0, 0, -6 );
-    cube4.setTranslation( 1, 0, -7 );
+    cube3.setTranslation( 1, 0, -7 );
     cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );
-
 /*    Cube3D c1,c2,c3;
     c1.setTranslation( -1, -2, -5 );
     c2.setTranslation( 0, -2, -5 );

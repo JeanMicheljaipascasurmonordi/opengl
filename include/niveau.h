@@ -24,7 +24,7 @@ public:
     Position positionFin;
 
 public:
-    Niveau(char* file);
+    Niveau(const char* file);
     int getFanNeeded();
 
     void deleteLoot(int id);
