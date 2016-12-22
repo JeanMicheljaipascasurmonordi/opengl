@@ -1,7 +1,9 @@
 #include "../include/niveau.h"
+#include "../include/Cube3D.h"
 
 
 using namespace std;
+
 
 Niveau::Niveau(const char* file){
 	ifstream fileNiveau(file);
@@ -92,24 +94,23 @@ Niveau::Niveau(const char* file){
 	}
 }
 
-
 int Niveau::getFanNeeded(){
-	return fanNeeded;
+    return fanNeeded;
 }
 
 void Niveau::deleteLoot(int id){
-	int size = loots.size();
-	int c=0;
-	while (loots[c].getID() != id) c++;
-	loots[c]=loots[size-1];
-	loots.pop_back();
+    int size = loots.size();
+    int c=0;
+    while (loots[c].getID() != id) c++;
+    loots[c]=loots[size-1];
+    loots.pop_back();
 }
 
 
 void Niveau::deleteEnnemi(int id){
-	int size = ennemis.size();
-	int c=0;
-	while (ennemis[c].getId() != id) c++;
-	ennemis[c]=ennemis[size-1];
-	ennemis.pop_back();
+    int size = ennemis.size();
+    int c=0;
+    while (ennemis[c].getId() != id) c++;
+    ennemis[c]=ennemis[size-1];
+    ennemis.pop_back();
 }
