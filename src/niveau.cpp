@@ -10,6 +10,7 @@ Niveau::Niveau(const char* file){
 	if(file){
 		cout<<"youpi";
 		fileNiveau >> fanNeeded;
+		cout<<fanNeeded<<endl;
 		int xDebut, yDebut, zDebut;
 		fileNiveau >> xDebut;
 		fileNiveau >> yDebut;

@@ -23,7 +23,9 @@ void Hero::setDamage(int damage){
 void Hero::setNbrFan(int nbFan){
     this->nbrFan = nbrFan;
 }
-
+void Hero::setPosition(Position position){
+    this->position = position;
+}
 
 int Hero::getAngle(){
     return(angle);
@@ -36,6 +38,9 @@ int Hero::getDamage(){
 }
 int Hero::getNbrFan(){
     return nbrFan;
+}
+Position Hero::getPosition(){
+    return position;
 }
 
 /*void Hero::attacked(Ennemi ennemi){
