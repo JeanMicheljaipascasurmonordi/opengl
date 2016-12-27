@@ -99,6 +99,10 @@ int Niveau::getFanNeeded(){
     return fanNeeded;
 }
 
+vector<Mur> Niveau::getMurs(){
+	return murs;
+}
+
 void Niveau::deleteLoot(int id){
     int size = loots.size();
     int c=0;

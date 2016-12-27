@@ -13,3 +13,6 @@ void MurAngle::setAngle(int angle){
 int MurAngle::getAngle(){
 	return angle;
 }
+Position MurAngle::getPosition(){
+	return position;
+}

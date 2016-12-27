@@ -11,6 +11,7 @@ class MurCulDeSac{
 		MurCulDeSac(Position position, int angle);
 		void setAngle(int angle);
 		int getAngle();
+		Position getPosition();
 
 };
 

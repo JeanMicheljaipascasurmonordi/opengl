@@ -9,9 +9,10 @@ class Mur{
     int angle;
 
 public:
-    Mur(Position position, int angle, Cube3D cube);
+    Mur(Position position, int angle);
     void setAngle(int angle);
     int getAngle();
+    Position getPosition();
 
 };
 

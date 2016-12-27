@@ -8,6 +8,7 @@
 #include <GL/gl.h>
 #include <math.h>
 #include <string>
+#include <fstream>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 
@@ -27,10 +28,14 @@
 #include "../include/position.h"
 #include "../include/loot.h"
 #include "../include/ennemi.h"
+#include "../include/hero.h"
 #include "../include/niveau.h"
 
 using namespace glimac;
 //using namespace std;
+
+Hero hero;
+//Niveau niv = Niveau("niveautest.txt");
 
 void initGlew() {
     // Initialize glew for OpenGL3+ support
@@ -43,9 +48,8 @@ void initGlew() {
 
 int main(int argc, char **argv) {
 
-    Hero hero;
-    Niveau niveau = Niveau("niveautest.txt");
-    std::cout<<niveau.getFanNeeded();
+   
+    //std::cout<<niv.getFanNeeded();
 
 
     std::cout << "test log console" << std::endl;
@@ -79,7 +83,19 @@ int main(int argc, char **argv) {
     cube2.setTranslation( 0, 0, -6 );
     cube3.setTranslation( 1, 0, -7 );
     cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );
-
+    ifstream fileNiveau("test");
+    int size;
+   
+    for(int i=0; i<5; i++){
+        Cube3D cube;
+        int x, y, z, alpha;
+        fileNiveau >> x;
+        fileNiveau >> y;
+        fileNiveau >> z;
+        fileNiveau >> alpha;
+        cube.setTranslation(x, y, z);
+        cube.setRotation(glm::vec3(0, alpha, 0), 1.5f);
+    }
 
 
 
@@ -96,65 +112,65 @@ int main(int argc, char **argv) {
             switch(e.type) {
                 case SDL_KEYDOWN:
                     switch( e.key.keysym.sym ){
-                        case SDLK_w:
+                        case SDLK_w: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             std::cout << "z" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
-                            newx = p.x - 1*sin(alpha);
-                            newz = p.z + 1*cos(alpha);
-                            p.setX(newx);
-                            p.setZ(newZ);
-                            hero.setPosition(p);
+                            newx = (int) (p.x - 1 * sin(alpha));
+                            newz = (int) (p.z + 1 * cos(alpha));
+                            p.x = newx;
+                            p.z = newz;
+                            hero.setPosition(p);}
                             break;
-                        case SDLK_s:
+                        case SDLK_s: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             std::cout << "s" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
-                            newx = p.x + 1*sin(alpha);
-                            newz = p.z - 1*cos(alpha);
-                            p.setX(newx);
-                            p.setZ(newZ);
-                            hero.setPosition(p);
+                            newx = (int) (p.x + 1 * sin(alpha));
+                            newz = (int) (p.z - 1 * cos(alpha));
+                            p.x = newx;
+                            p.z = newz;
+                            hero.setPosition(p); }
                             break;
-                        case SDLK_a:
+                        case SDLK_a: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             std::cout << "q" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
-                            newx = p.x - 1*sin(alpha);
-                            newz = p.z - 1*cos(alpha);
-                            p.setX(newx);
-                            p.setZ(newZ);
-                            hero.setPosition(p);
+                            newx = (int) (p.x - 1 * sin(alpha));
+                            newz = (int) (p.z - 1 * cos(alpha));
+                            p.x = newx;
+                            p.z = newz;
+                            hero.setPosition(p); }
                             break;
-                        case SDLK_d:
+                        case SDLK_d: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             std::cout << "d" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
-                            newx = p.x + 1*sin(alpha);
-                            newz = p.z + 1*cos(alpha);
-                            p.setX(newx);
-                            p.setZ(newZ);
-                            hero.setPosition(p);
+                            newx = (int) (p.x + 1 * sin(alpha));
+                            newz = (int) (p.z + 1 * cos(alpha));
+                            p.x = newx;
+                            p.z = newz;
+                            hero.setPosition(p); }
                             break;
-                        case SDLK_RIGHT:
+                        case SDLK_RIGHT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             std::cout << "RIGHT" << std::endl;
                             int alpha = hero.getAngle();
-                            hero.setAngle(alpha + 90);
+                            hero.setAngle(alpha + 90); }
                             break;
-                        case SDLK_LEFT:
+                        case SDLK_LEFT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             std::cout << "LEFT" << std::endl;
                             int alpha = hero.getAngle();
-                            hero.setAngle(alpha - 90);
+                            hero.setAngle(alpha - 90); }
                             break;
                         case SDLK_SPACE: // Attaque
                             Mix_PlayChannel(-1, cindyattack, 0);

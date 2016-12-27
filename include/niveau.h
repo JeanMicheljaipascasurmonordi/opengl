@@ -26,6 +26,7 @@ public:
 public:
     Niveau(const char* file);
     int getFanNeeded();
+    vector<Mur> getMurs();
 
     void deleteLoot(int id);
     void deleteEnnemi(int id);

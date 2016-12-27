@@ -11,6 +11,7 @@ class MurAngle{
 		MurAngle(Position position, int angle);
 		void setAngle(int angle);
 		int getAngle();
+		Position getPosition();
 
 };
 
