@@ -32,7 +32,7 @@
 #include "../include/niveau.h"
 
 using namespace glimac;
-//using namespace std;
+using namespace std;
 
 Hero hero;
 //Niveau niv = Niveau("niveautest.txt");
@@ -41,7 +41,7 @@ void initGlew() {
     // Initialize glew for OpenGL3+ support
     GLenum glewInitError = glewInit();
     if(GLEW_OK != glewInitError) {
-        std::cerr << glewGetErrorString(glewInitError) << std::endl;
+        cerr << glewGetErrorString(glewInitError) << endl;
         exit(1);
     }
 }
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     //std::cout<<niv.getFanNeeded();
 
 
-    std::cout << "test log console" << std::endl;
+    cout << "test log console" << endl;
 
     // Init de l'application
     SDLWindowManager windowManager(800, 800, "DungeonGL");
@@ -62,19 +62,19 @@ int main(int argc, char **argv) {
 
     //Init Son
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
-        std::cout << "erreur Initialisation Mixer" << std::endl;
+        cout << "erreur Initialisation Mixer" << endl;
 
     Mix_Music *musique = NULL;
-    musique = Mix_LoadMUS("cindysander_papillondelumiere.mp3");
+    musique = Mix_LoadMUS("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/music/cindysander_papillondelumiere.mp3");
     if(musique == NULL)
-        std::cout << "erreur repertoire musique" << std::endl;
+        cout << "erreur repertoire musique" << endl;
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
     Mix_PlayMusic(musique, -1);
 
     Mix_AllocateChannels(32);
     Mix_Chunk *cindyattack = Mix_LoadWAV("cindyattack.ogg");
     if(cindyattack == NULL)
-        std::cout << Mix_GetError() << std::endl;
+        cout << Mix_GetError() << endl;
 
 //===== Construction du monde =====//
     Cube3D cube1, cube2, cube3;
@@ -83,21 +83,27 @@ int main(int argc, char **argv) {
     cube2.setTranslation( 0, 0, -6 );
     cube3.setTranslation( 1, 0, -7 );
     cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );
-    ifstream fileNiveau("test");
+    ifstream fileNiveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/src/test.txt");
     int size;
-   
-    for(int i=0; i<5; i++){
-        Cube3D cube;
-        int x, y, z, alpha;
-        fileNiveau >> x;
-        fileNiveau >> y;
-        fileNiveau >> z;
-        fileNiveau >> alpha;
-        cube.setTranslation(x, y, z);
-        cube.setRotation(glm::vec3(0, alpha, 0), 1.5f);
+    if(fileNiveau){
+        for(int i=0; i<5; i++){
+            Cube3D cube;
+            int xcube = 0;
+            int ycube = 0;
+            int zcube = 0;
+            int alphacube = 0;
+            fileNiveau >> xcube;
+            cout<<"x = "<<xcube;
+            fileNiveau >> ycube;
+            fileNiveau >> zcube;
+            fileNiveau >> alphacube;
+            cube.setTranslation(xcube, ycube, zcube);
+            cube.setRotation(glm::vec3(0, alphacube, 0), 1.5f);
+        }
     }
-
-
+    else{
+        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
+    }
 
 
     // Application loop:
@@ -114,7 +120,7 @@ int main(int argc, char **argv) {
                     switch( e.key.keysym.sym ){
                         case SDLK_w: {
                             Mix_PlayChannel(-1, cindyattack, 0);
-                            std::cout << "z" << std::endl;
+                            cout << "z" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
@@ -126,7 +132,7 @@ int main(int argc, char **argv) {
                             break;
                         case SDLK_s: {
                             Mix_PlayChannel(-1, cindyattack, 0);
-                            std::cout << "s" << std::endl;
+                            cout << "s" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
@@ -138,7 +144,7 @@ int main(int argc, char **argv) {
                             break;
                         case SDLK_a: {
                             Mix_PlayChannel(-1, cindyattack, 0);
-                            std::cout << "q" << std::endl;
+                            cout << "q" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
@@ -150,7 +156,7 @@ int main(int argc, char **argv) {
                             break;
                         case SDLK_d: {
                             Mix_PlayChannel(-1, cindyattack, 0);
-                            std::cout << "d" << std::endl;
+                            cout << "d" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
                             int newx, newz;
@@ -162,19 +168,19 @@ int main(int argc, char **argv) {
                             break;
                         case SDLK_RIGHT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
-                            std::cout << "RIGHT" << std::endl;
+                            cout << "RIGHT" << std::endl;
                             int alpha = hero.getAngle();
                             hero.setAngle(alpha + 90); }
                             break;
                         case SDLK_LEFT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
-                            std::cout << "LEFT" << std::endl;
+                            cout << "LEFT" << std::endl;
                             int alpha = hero.getAngle();
                             hero.setAngle(alpha - 90); }
                             break;
                         case SDLK_SPACE: // Attaque
                             Mix_PlayChannel(-1, cindyattack, 0);
-                            std::cout << "espace" << std::endl;
+                            cout << "espace" << std::endl;
                             break;
                     }
                     break;
@@ -195,7 +201,7 @@ int main(int argc, char **argv) {
 
         // Rendu des objets de la scene
         for ( std::vector<Object3D*>::const_iterator it = Object3D::getSceneObjects().begin() ;  it != Object3D::getSceneObjects().end() ; it++ ) {
-            //(*it)->draw();
+            (*it)->draw();
         }
 
         // Update the display
