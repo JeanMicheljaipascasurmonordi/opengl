@@ -17,6 +17,7 @@
 #include <glimac/Sphere.hpp>
 #include <glimac/glm.hpp>
 #include <glimac/Image.hpp>
+#include <glimac/FreeflyCamera.hpp>
 
 #include "../include/Triangle3D.h"
 #include "../include/Cube3D.h"
