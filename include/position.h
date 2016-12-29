@@ -9,5 +9,7 @@ typedef struct{
 
 Position initPosition();
 Position newPosition(int coordx, int coordy, int coordz);
+bool samePosition(Position p1, Position p2);
+
 
 #endif

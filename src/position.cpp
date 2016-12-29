@@ -17,3 +17,7 @@ Position newPosition(int coordx, int coordy, int coordz){
 	p.z = coordz;
 	return p;
 }
+
+bool samePosition(Position p1, Position p2){
+	return (p1.x == p2.x && p1.y == p2.y && p1.z == p2.z);
+}

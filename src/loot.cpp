@@ -16,3 +16,7 @@ int Loot::getNbrFan(){
 	return nbrFan;
 }
 
+Position Loot::getPosition(){
+	return position;
+}
+

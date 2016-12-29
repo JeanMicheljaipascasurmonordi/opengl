@@ -12,6 +12,7 @@ public:
     Loot(int ID, Position position, int nbrFan);
     int getID();
     int getNbrFan();
+    Position getPosition();
 
 };
 

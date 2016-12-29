@@ -35,7 +35,7 @@ using namespace glimac;
 using namespace std;
 
 Hero hero;
-//Niveau niv = Niveau("niveautest.txt");
+Niveau niveau = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/src/niveautest.txt");
 
 void initGlew() {
     // Initialize glew for OpenGL3+ support
@@ -49,13 +49,13 @@ void initGlew() {
 int main(int argc, char **argv) {
 
    
-    //std::cout<<niv.getFanNeeded();
+    cout<<niveau.getFanNeeded();
 
 
     cout << "test log console" << endl;
 
     // Init de l'application
-    SDLWindowManager windowManager(800, 800, "DungeonGL");
+    SDLWindowManager windowManager(900, 900, "DungeonGL");
     initGlew();
     glEnable(GL_DEPTH_TEST);
 
@@ -77,13 +77,22 @@ int main(int argc, char **argv) {
         cout << Mix_GetError() << endl;
 
 //===== Construction du monde =====//
-    Cube3D cube1, cube2, cube3;
+   /* Cube3D cube1, cube2, cube3;
     //Sphere3D sphere(windowManager);
     cube1.setTranslation( 0, 0, -5 );
     cube2.setTranslation( 0, 0, -6 );
     cube3.setTranslation( 1, 0, -7 );
-    cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );
-    ifstream fileNiveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/src/test.txt");
+    cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );*/
+    
+    int size = niveau.murs.size();
+    for(int i=0; i<size; i++){
+        Position p = niveau.murs[i].getPosition();
+        Cube3D cube;
+        int alpha = niveau.murs[i].getAngle();
+        cube.setTranslation(p.x, p.y, p.z);
+        cube.setRotation(glm::vec3(0, alpha, 0), 1.5f);
+    }
+    /*ifstream fileNiveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/src/test.txt");
     int size;
     if(fileNiveau){
         for(int i=0; i<5; i++){
@@ -103,12 +112,28 @@ int main(int argc, char **argv) {
     }
     else{
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
-    }
+    }*/
 
 
     // Application loop:
     bool done = false;
     while(!done) {
+
+
+        if (samePosition(hero.getPosition(), niveau.positionFin) && hero.getNbrFan() == niveau.getFanNeeded()){
+            cout<<"niveau fini"<<endl;
+        }
+
+        for (int i=0; i<niveau.loots.size(); i++){
+            if (samePosition(hero.getPosition(), niveau.loots[i].getPosition())){
+                int fan = hero.getNbrFan();
+                hero.setNbrFan(fan + niveau.loots[i].getNbrFan());
+                niveau.deleteLoot(niveau.loots[i].getID());
+            }
+        }
+
+
+
         // Event loop:
         SDL_Event e;
         while(windowManager.pollEvent(e)) {
