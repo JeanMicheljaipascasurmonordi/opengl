@@ -36,7 +36,7 @@ using namespace glimac;
 using namespace std;
 
 Hero hero;
-Niveau niveau = Niveau("D:/Sons/CindySandersOnTheRoadToRouteOfDiamant/opengl/assets/niveaux/niveautest.txt");
+Niveau niveau = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/niveaux/niveautest.txt");
 
 void initGlew() {
     // Initialize glew for OpenGL3+ support
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
         cout << "erreur Initialisation Mixer" << endl;
 
     Mix_Music *musique = NULL;
-    musique = Mix_LoadMUS("D:/Sons/CindySandersOnTheRoadToRouteOfDiamant/opengl/assets/music/cindysander_papillondelumiere.mp3");
+    musique = Mix_LoadMUS("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/musiccindysander_papillondelumiere.mp3");
     if(musique == NULL)
         cout << "erreur repertoire musique" << endl;
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
@@ -134,6 +134,9 @@ int main(int argc, char **argv) {
     // Application loop:
     bool done = false;
     while(!done) {
+        Position positionHero = newPosition(0,0,0);
+        hero.setPosition(positionHero);
+        hero.setAngle(0);
 
 
         if (samePosition(hero.getPosition(), niveau.positionFin) && hero.getNbrFan() == niveau.getFanNeeded()){
@@ -164,10 +167,8 @@ int main(int argc, char **argv) {
                             cout << "z" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
-                            int newx, newz;
-                            newx = (int) (p.x - 1 * sin(alpha));
-                            newz = (int) (p.z + 1 * cos(alpha));
-                            p.x = newx;
+                            int newz;
+                            newz = p.z + 1;
                             p.z = newz;
                             hero.setPosition(p);}
                             break;
@@ -176,10 +177,8 @@ int main(int argc, char **argv) {
                             cout << "s" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
-                            int newx, newz;
-                            newx = (int) (p.x + 1 * sin(alpha));
-                            newz = (int) (p.z - 1 * cos(alpha));
-                            p.x = newx;
+                            int newz;
+                            newz = p.z - 1;
                             p.z = newz;
                             hero.setPosition(p); }
                             break;
@@ -188,11 +187,9 @@ int main(int argc, char **argv) {
                             cout << "q" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
-                            int newx, newz;
-                            newx = (int) (p.x - 1 * sin(alpha));
-                            newz = (int) (p.z - 1 * cos(alpha));
+                            int newx;                            
+                            newx = p.x + 1;                             
                             p.x = newx;
-                            p.z = newz;
                             hero.setPosition(p); }
                             break;
                         case SDLK_d: {
@@ -200,11 +197,9 @@ int main(int argc, char **argv) {
                             cout << "d" << std::endl;
                             Position p = hero.getPosition();
                             int alpha = hero.getAngle();
-                            int newx, newz;
-                            newx = (int) (p.x + 1 * sin(alpha));
-                            newz = (int) (p.z + 1 * cos(alpha));
+                            int newx;
+                            newx =p.x - 1;
                             p.x = newx;
-                            p.z = newz;
                             hero.setPosition(p); }
                             break;
                         case SDLK_RIGHT: {
@@ -241,7 +236,11 @@ int main(int argc, char **argv) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Rendu des objets de la scene
+        Position p = hero.getPosition();
+        int alpha = hero.getAngle();
         for ( std::vector<Object3D*>::const_iterator it = Object3D::getSceneObjects().begin() ;  it != Object3D::getSceneObjects().end() ; it++ ) {
+            (*it)->addTranslation(p.x, p.y, p.z);
+            if (alpha != 0) (*it)->addRotation(glm::vec3(0, alpha, 0), 1.5f);
             (*it)->draw();
         }
 
