@@ -27,6 +27,7 @@ private:
 
 public:
     Cube3D();
+    Cube3D(int type);
     void draw();
 };
 
