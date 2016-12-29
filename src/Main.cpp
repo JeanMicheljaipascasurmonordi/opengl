@@ -35,7 +35,7 @@ using namespace glimac;
 using namespace std;
 
 Hero hero;
-Niveau niveau = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/src/niveautest.txt");
+Niveau niveau = Niveau("D:/Sons/CindySandersOnTheRoadToRouteOfDiamant/opengl/assets/niveaux/niveautest.txt");
 
 void initGlew() {
     // Initialize glew for OpenGL3+ support
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
         cout << "erreur Initialisation Mixer" << endl;
 
     Mix_Music *musique = NULL;
-    musique = Mix_LoadMUS("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/music/cindysander_papillondelumiere.mp3");
+    musique = Mix_LoadMUS("D:/Sons/CindySandersOnTheRoadToRouteOfDiamant/opengl/assets/music/cindysander_papillondelumiere.mp3");
     if(musique == NULL)
         cout << "erreur repertoire musique" << endl;
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
@@ -85,13 +85,28 @@ int main(int argc, char **argv) {
     cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );*/
     
     int size = niveau.murs.size();
+    Cube3D cube[size];
     for(int i=0; i<size; i++){
         Position p = niveau.murs[i].getPosition();
-        Cube3D cube;
         int alpha = niveau.murs[i].getAngle();
-        cube.setTranslation(p.x, p.y, p.z);
-        cube.setRotation(glm::vec3(0, alpha, 0), 1.5f);
+        cube[i] = Cube3D(1);
+        cube[i].setTranslation(p.x, p.y, p.z);
+        if(alpha)
+            cube[i].setRotation(glm::vec3(0, alpha, 0), 1.5f);
     }
+
+    size = niveau.mursAngles.size();
+    Cube3D cubeAngle[size];
+    for(int i=0; i<size; i++){
+        Position p = niveau.mursAngles[i].getPosition();
+        int alpha = niveau.mursAngles[i].getAngle();
+        cubeAngle[i] = Cube3D(2);
+        cubeAngle[i].setTranslation(p.x, p.y, p.z);
+        if(alpha)
+            cubeAngle[i].setRotation(glm::vec3(0, alpha, 0), 1.5f);
+    }
+
+
     /*ifstream fileNiveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/src/test.txt");
     int size;
     if(fileNiveau){
