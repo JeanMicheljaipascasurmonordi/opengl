@@ -1,16 +1,16 @@
 #include "../include/mur.h"
 #include <iostream>
 
-Mur::Mur(Position position, int angle){
+Mur::Mur(Position position, float angle){
    	this->position = position;
    	this->angle = angle;
 }
 
-void Mur::setAngle(int angle){
+void Mur::setAngle(float angle){
 	this->angle = angle;
 }
 
-int Mur::getAngle(){
+float Mur::getAngle(){
 	return angle;
 }
 

@@ -12,22 +12,33 @@ using namespace glimac;
 struct Triangle{
     glm::vec3 pos;
     glm::vec3 color;
+    glm::vec2 uv;
 
-    Triangle( glm::vec3 pos, glm::vec3 color){
+    Triangle( glm::vec3 pos, glm::vec3 color, glm::vec2 uv){
         this->pos = pos;
         this->color = color;
+        this->uv = uv;
     }
 
 };
 
 Cube3D::Cube3D(){
-    //charge les shaders que l'on a ajouté dans le dossier shaders
+    std::unique_ptr<Image> image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\Cube.jpg");
+    if(image == NULL)
+        std::cout << "erreur image" << std::endl;
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture( GL_TEXTURE_2D, texture );
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA ,GL_FLOAT, image->getPixels());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     FilePath applicationPath(".\\opengl.exe");
-    Program program = loadProgram(applicationPath.dirPath() + "\\..\\..\\shaders\\color2D.vs.glsl",
-                                  applicationPath.dirPath() + "\\..\\..\\shaders\\color2D.fs.glsl");
+    Program program = loadProgram(applicationPath.dirPath() + "\\..\\..\\shaders\\CubeTex.vs.glsl",
+                                  applicationPath.dirPath() + "\\..\\..\\shaders\\CubeTex.fs.glsl");
     program.use();
     // Matrice de transformation
-    this->uModelMatrixID = glGetUniformLocation( program.getGLId(), "uModelMatrix" );
+    this->uModelMatrixID = glGetUniformLocation( program.getGLId(), "MVP" );
 
 
     /*********************************
@@ -54,14 +65,26 @@ Cube3D::Cube3D(){
     glm::vec3 lowD( -box.upper.x, -box.upper.y, box.upper.z );
 
     std::vector<Triangle> vertices;
-    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0) ) );
-    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0) ) );
-    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 1) ) );
-    vertices.push_back( Triangle( upD, glm::vec3(0, 1, 1) ) );
-    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1) ) );
-    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1) ) );
-    vertices.push_back( Triangle( lowC, glm::vec3(1, 1, 0) ) );
-    vertices.push_back( Triangle( lowD, glm::vec3(1, 0, 0) ) );
+    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0), glm::vec2(1.f, 0.f)));
+    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(1.f, 0.5f)));
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 1), glm::vec2(0.66f, 0.5f)));
+    vertices.push_back( Triangle( upD, glm::vec3(0, 1, 1), glm::vec2(0.66f, 0.f)));
+    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.5f)));
+    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));
+    vertices.push_back( Triangle( lowC, glm::vec3(1, 1, 0), glm::vec2(0.f , 1.f)));
+    vertices.push_back( Triangle( lowD, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.5f)));
+
+    //RIGHT
+    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0), glm::vec2(1.f, 0.5f)));
+    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.66f, 1.f)));
+    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(1.f, 1.f)));
+    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.5f)));
+
+    //LEFT
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.66f, 0.5f)));
+    vertices.push_back( Triangle( lowC, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.66f, 1.f)));
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.33f, 0.5f)));
 
 
     glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Triangle), vertices.data(), GL_STATIC_DRAW);
@@ -77,19 +100,21 @@ Cube3D::Cube3D(){
         uint32_t indices[] = {
                 0, 1, 2,//faceSup
                 0, 2, 3,
-                0, 4, 5,//
-                0, 5, 1,
+                8, 10, 9,//face droite
+                8, 9, 11,
                 //0, 4, 7,//
                 //0, 7, 3,
-                3, 7, 6,//
-                3, 6, 2,
+                12, 14, 13,//
+                12, 13, 15,
                 //1, 2, 6,//
                 //1, 6, 5,
                 4, 5, 6,//
                 4, 6, 7
         };
+
         // => On remplit l'IBO avec les indices:
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 24 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     glGenVertexArrays(1, &vao);
@@ -104,27 +129,37 @@ Cube3D::Cube3D(){
     //activation des attributs de vertex, prend en para l'index renseignant le type de data
     //on prefere les déclarer auparavant dans des constantes plutot que en clair
     const GLuint VERTEX_ATTR_POSITION = 0;
-    const GLuint VERTEX_ATTR_COLOR= 1;
+    const GLuint VERTEX_ATTR_UV= 1;
     glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
-    glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
+    glEnableVertexAttribArray(VERTEX_ATTR_UV);
 
 
     //on rebind vbo pour lui indiquer lequel il doit utiliser
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glVertexAttribPointer(VERTEX_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, pos) ) );
-    glVertexAttribPointer(VERTEX_ATTR_COLOR, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, color) ) );
+    glVertexAttribPointer(VERTEX_ATTR_UV, 2, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, uv) ) );
     glBindBuffer(GL_ARRAY_BUFFER, 0 );
     glBindVertexArray(0);
 
 }
+
 Cube3D::Cube3D(int type){
     //charge les shaders que l'on a ajouté dans le dossier shaders
+
+    std::unique_ptr<Image> image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\Cube.jpg");
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture( GL_TEXTURE_2D, texture );
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA ,GL_FLOAT, image->getPixels());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     FilePath applicationPath(".\\opengl.exe");
-    Program program = loadProgram(applicationPath.dirPath() + "\\..\\..\\shaders\\color2D.vs.glsl",
-                                  applicationPath.dirPath() + "\\..\\..\\shaders\\color2D.fs.glsl");
+    Program program = loadProgram(applicationPath.dirPath() + "\\..\\..\\shaders\\CubeTex.vs.glsl",
+                                  applicationPath.dirPath() + "\\..\\..\\shaders\\CubeTex.fs.glsl");
     program.use();
     // Matrice de transformation
-    this->uModelMatrixID = glGetUniformLocation( program.getGLId(), "uModelMatrix" );
+    this->uModelMatrixID = glGetUniformLocation( program.getGLId(), "MVP" );
 
 
     /*********************************
@@ -151,14 +186,41 @@ Cube3D::Cube3D(int type){
     glm::vec3 lowD( -box.upper.x, -box.upper.y, box.upper.z );
 
     std::vector<Triangle> vertices;
-    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0) ) );
-    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0) ) );
-    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 1) ) );
-    vertices.push_back( Triangle( upD, glm::vec3(0, 1, 1) ) );
-    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1) ) );
-    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1) ) );
-    vertices.push_back( Triangle( lowC, glm::vec3(1, 1, 0) ) );
-    vertices.push_back( Triangle( lowD, glm::vec3(1, 0, 0) ) );
+    //TOP
+    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0), glm::vec2(1.f, 0.f)));//0
+    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(1.f, 0.5f)));//1
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 1), glm::vec2(0.66f, 0.5f)));//2
+    vertices.push_back( Triangle( upD, glm::vec3(0, 1, 1), glm::vec2(0.66f, 0.f)));//3
+
+    //BOT
+    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.5f)));//4
+    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));//5
+    vertices.push_back( Triangle( lowC, glm::vec3(1, 1, 0), glm::vec2(0.f , 1.f)));//6
+    vertices.push_back( Triangle( lowD, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.5f)));//7
+
+    //RIGHT
+    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0), glm::vec2(1.f, 0.5f)));//8
+    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.66f, 1.f)));//9
+    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(1.f, 1.f)));//10
+    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.5f)));//11
+
+    //LEFT
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.66f, 0.5f)));//12
+    vertices.push_back( Triangle( lowC, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));//13
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.66f, 1.f)));//14
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.33f, 0.5f)));//15
+
+    //BACK
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.33f, 0.f)));//16
+    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(0.66f, 0.5f)));//17
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.5f)));//18
+    vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.f)));//19
+
+    //FRONT
+    vertices.push_back( Triangle( upB, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.f)));//20
+    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.33f, 0.f)));//21
+    vertices.push_back( Triangle( lowC, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.5f)));//22
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.f, 0.5f)));//23
 
 
     glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Triangle), vertices.data(), GL_STATIC_DRAW);
@@ -174,12 +236,12 @@ Cube3D::Cube3D(int type){
         uint32_t indices[] = {
                 0, 1, 2,//faceSup
                 0, 2, 3,
-                0, 4, 5,//
-                0, 5, 1,
+                8, 10, 9,//face droite
+                8, 9, 11,
                 //0, 4, 7,//
                 //0, 7, 3,
-                3, 7, 6,//
-                3, 6, 2,
+                12, 14, 13,//
+                12, 13, 15,
                 //1, 2, 6,//
                 //1, 6, 5,
                 4, 5, 6,//
@@ -194,10 +256,10 @@ Cube3D::Cube3D(int type){
         uint32_t indices[] = {
                 0, 1, 2,//faceSup
                 0, 2, 3,
-                0, 4, 5,//
-                0, 5, 1,
-                0, 4, 7,//
-                0, 7, 3,
+                8, 10, 9,//face droite
+                8, 9, 11,
+                19, 16, 18,//
+                19, 18, 17,
                 //3, 7, 6,//
                 //3, 6, 2,
 
@@ -212,6 +274,30 @@ Cube3D::Cube3D(int type){
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
+    if(type == 3){
+        uint32_t indices[] = {
+                0, 1, 2,//faceSup
+                0, 2, 3,
+                8, 10, 9,//face droite
+                8, 9, 11,
+                19, 16, 18,//
+                19, 18, 17,
+                12, 14, 13,//
+                12, 13, 15,
+
+                //1, 2, 6,//
+                //1, 6, 5,
+
+                4, 5, 6,//
+                4, 6, 7
+        };
+        // => On remplit l'IBO avec les indices:
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 24 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+
+
 
     glGenVertexArrays(1, &vao);
 
@@ -225,15 +311,15 @@ Cube3D::Cube3D(int type){
     //activation des attributs de vertex, prend en para l'index renseignant le type de data
     //on prefere les déclarer auparavant dans des constantes plutot que en clair
     const GLuint VERTEX_ATTR_POSITION = 0;
-    const GLuint VERTEX_ATTR_COLOR= 1;
+    const GLuint VERTEX_ATTR_UV= 1;
     glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
-    glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
+    glEnableVertexAttribArray(VERTEX_ATTR_UV);
 
 
     //on rebind vbo pour lui indiquer lequel il doit utiliser
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glVertexAttribPointer(VERTEX_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, pos) ) );
-    glVertexAttribPointer(VERTEX_ATTR_COLOR, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, color) ) );
+    glVertexAttribPointer(VERTEX_ATTR_UV, 2, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, uv) ) );
     glBindBuffer(GL_ARRAY_BUFFER, 0 );
     glBindVertexArray(0);
 

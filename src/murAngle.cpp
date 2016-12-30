@@ -1,16 +1,16 @@
 #include "../include/murAngle.h"
 #include <iostream>
 
-MurAngle::MurAngle(Position position, int angle){
+MurAngle::MurAngle(Position position, float angle){
 	this->position = position;
 	this->angle = angle;
 }
 
-void MurAngle::setAngle(int angle){
+void MurAngle::setAngle(float angle){
 	this->angle = angle;
 }
 
-int MurAngle::getAngle(){
+float MurAngle::getAngle(){
 	return angle;
 }
 Position MurAngle::getPosition(){

@@ -5,12 +5,12 @@
 
 class MurCulDeSac{
 	Position position;
-	int angle;
+	float angle;
 
 	public:
-		MurCulDeSac(Position position, int angle);
-		void setAngle(int angle);
-		int getAngle();
+		MurCulDeSac(Position position, float angle);
+		void setAngle(float angle);
+		float getAngle();
 		Position getPosition();
 
 };

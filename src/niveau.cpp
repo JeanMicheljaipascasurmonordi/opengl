@@ -27,7 +27,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrMur;
 		for (int i=0; i<nbrMur; i++){
 			Position p;
-			int x, y, z, angle;
+			int x, y, z;
+			float angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -41,7 +42,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrMurAngle;
 		for (int i=0; i<nbrMurAngle; i++){
 			Position p;
-			int x, y, z, angle;
+			int x, y, z;
+			float angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -55,7 +57,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrMurCDS;
 		for (int i=0; i<nbrMurCDS; i++){
 			Position p;
-			int x, y, z, angle;
+			int x, y, z;
+			float angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -69,7 +72,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrEnnemi;
 		for (int i=0; i<nbrEnnemi; i++){
 			Position p;
-			int x, y, z, angle;
+			int x, y, z;
+			float angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;

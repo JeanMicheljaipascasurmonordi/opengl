@@ -36,7 +36,7 @@ using namespace glimac;
 using namespace std;
 
 Hero hero;
-Niveau niveau = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/niveaux/niveautest.txt");
+Niveau niveau = Niveau("D:/Sons/CindySandersOnTheRoadToRouteOfDiamant/opengl/assets/niveaux/niveautest.txt");
 
 void initGlew() {
     // Initialize glew for OpenGL3+ support
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
         cout << "erreur Initialisation Mixer" << endl;
 
     Mix_Music *musique = NULL;
-    musique = Mix_LoadMUS("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/musiccindysander_papillondelumiere.mp3");
+    musique = Mix_LoadMUS("D:/Sons/CindySandersOnTheRoadToRouteOfDiamant/opengl/assets/music/cindysander_papillondelumiere.mp3");
     if(musique == NULL)
         cout << "erreur repertoire musique" << endl;
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
@@ -78,33 +78,44 @@ int main(int argc, char **argv) {
         cout << Mix_GetError() << endl;
 
 //===== Construction du monde =====//
-   /* Cube3D cube1, cube2, cube3;
-    //Sphere3D sphere(windowManager);
-    cube1.setTranslation( 0, 0, -5 );
-    cube2.setTranslation( 0, 0, -6 );
-    cube3.setTranslation( 1, 0, -7 );
-    cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );*/
+//    Cube3D cube1, cube2, cube3;
+//    //Sphere3D sphere(windowManager);
+//    cube1.setTranslation( 0, 0, -1 );
+//    cube2.setTranslation( 0, 0, -2 );
+//    cube3.setTranslation( -1, 0, 0 );
+//    cube3.setRotation( glm::vec3(0, 1, 0), 3.14f );
     
     int size = niveau.murs.size();
     Cube3D cube[size];
     for(int i=0; i<size; i++){
         Position p = niveau.murs[i].getPosition();
-        int alpha = niveau.murs[i].getAngle();
+        float alpha = niveau.murs[i].getAngle();
         cube[i] = Cube3D(1);
         cube[i].setTranslation(p.x, p.y, p.z);
         if(alpha)
-            cube[i].setRotation(glm::vec3(0, alpha, 0), 1.5f);
+            cube[i].setRotation(glm::vec3(0, 1, 0), alpha);
     }
 
     size = niveau.mursAngles.size();
     Cube3D cubeAngle[size];
     for(int i=0; i<size; i++){
         Position p = niveau.mursAngles[i].getPosition();
-        int alpha = niveau.mursAngles[i].getAngle();
+        float alpha = niveau.mursAngles[i].getAngle();
         cubeAngle[i] = Cube3D(2);
         cubeAngle[i].setTranslation(p.x, p.y, p.z);
         if(alpha)
-            cubeAngle[i].setRotation(glm::vec3(0, alpha, 0), 1.5f);
+            cubeAngle[i].setRotation(glm::vec3(0, 1, 0), alpha);
+    }
+
+    size = niveau.mursCDS.size();
+    Cube3D cubeCDS[size];
+    for(int i=0; i<size; i++){
+        Position p = niveau.mursCDS[i].getPosition();
+        float alpha = niveau.mursCDS[i].getAngle();
+        cubeCDS[i] = Cube3D(3);
+        cubeCDS[i].setTranslation(p.x, p.y, p.z);
+        if(alpha)
+            cubeCDS[i].setRotation(glm::vec3(0, 1, 0), alpha);
     }
 
 
