@@ -3,6 +3,8 @@
 #include "../include/position.h"
 //#include "../include/ennemi.h"
 #include "../include/niveau.h"
+#include "Object3D.h"
+#include "TransformMatrix.h"
 #include <iostream>
 
 class Hero{

@@ -6,12 +6,12 @@
 
 class Mur{
     Position position;
-    int angle;
+    float angle;
 
 public:
-    Mur(Position position, int angle);
-    void setAngle(int angle);
-    int getAngle();
+    Mur(Position position, float angle);
+    void setAngle(float angle);
+    float getAngle();
     Position getPosition();
     void setPosition(Position p);
 
