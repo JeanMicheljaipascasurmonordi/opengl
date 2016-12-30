@@ -16,3 +16,6 @@ int MurCulDeSac::getAngle(){
 Position MurCulDeSac::getPosition(){
 	return position;
 }
+void MurCulDeSac::setPosition(Position p){
+	this->position = p;
+}

@@ -1,10 +1,8 @@
-//
-// Created by Vincent on 14/12/2016.
-//
+
 
 #include "../include/Object3D.h"
 
-//map<string, Node*> Node::nodesMap = map<string, Node*>();
+
 std::vector<Object3D*> Object3D::sceneObjects = std::vector<Object3D*>();
 
 Object3D::Object3D() {
@@ -50,4 +48,12 @@ void Object3D::addScale(glm::vec3 scale) {
 
 void Object3D::addScale(float x, float y, float z) {
     this->scaleMatrix *= glm::scale( glm::mat4(), glm::vec3(x, y, z) );
+}
+
+void Object3D::setPosition(Position p){
+    this->position = p;
+}
+
+Position Object3D::getPosition(){
+    return position;
 }

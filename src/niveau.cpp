@@ -11,13 +11,13 @@ Niveau::Niveau(const char* file){
 		cout<<"youpi";
 		fileNiveau >> fanNeeded;
 		cout<<fanNeeded<<endl;
-		int xDebut, yDebut, zDebut;
+		double xDebut, yDebut, zDebut;
 		fileNiveau >> xDebut;
 		fileNiveau >> yDebut;
 		fileNiveau >> zDebut;
 		positionDebut = newPosition(xDebut, yDebut, zDebut);
 
-		int xFin, yFin, zFin;
+		double xFin, yFin, zFin;
 		fileNiveau >> xFin;
 		fileNiveau >> yFin;
 		fileNiveau >> zFin;
@@ -27,7 +27,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrMur;
 		for (int i=0; i<nbrMur; i++){
 			Position p;
-			int x, y, z, angle;
+			double x, y, z;
+			int angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -41,7 +42,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrMurAngle;
 		for (int i=0; i<nbrMurAngle; i++){
 			Position p;
-			int x, y, z, angle;
+			double x, y, z;
+			int angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -55,7 +57,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrMurCDS;
 		for (int i=0; i<nbrMurCDS; i++){
 			Position p;
-			int x, y, z, angle;
+			double x, y, z;
+			int angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -69,7 +72,8 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrEnnemi;
 		for (int i=0; i<nbrEnnemi; i++){
 			Position p;
-			int x, y, z, angle;
+			double x, y, z;
+			int angle;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -83,7 +87,7 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrLoot;
 		for (int i=0; i<nbrLoot; i++){
 			Position p;
-			int x, y, z;
+			double x, y, z;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;
@@ -119,3 +123,57 @@ void Niveau::deleteEnnemi(int id){
     ennemis[c]=ennemis[size-1];
     ennemis.pop_back();
 }
+
+bool Niveau::distanceFromObject(Position p){
+	int c=0;
+	for (int i=0; i<murs.size(); i++){
+		if (distance(p, murs[i].getPosition()) < 1) c = 1;
+	}
+	for (int i=0; i<mursAngles.size(); i++){
+		if (distance(p, mursAngles[i].getPosition()) < 1) c = 1;
+	}
+	for (int i=0; i<mursCDS.size(); i++){
+		if (distance(p, mursCDS[i].getPosition()) < 1) c = 1;
+	}
+	return (c==0);
+}
+
+
+/*void Niveau::translateNiveau(double x, double y, double z){
+	for (int i=0; i<murs.size(); i++){
+		Position p = murs[i].getPosition();
+		p.x += x;
+		p.y += y;
+		p.z += z;
+		murs[i].setPosition(p);
+	}
+	for (int i=0; i<mursAngles.size(); i++){
+		Position p = mursAngles[i].getPosition();
+		p.x += x;
+		p.y += y;
+		p.z += z;
+		mursAngles[i].setPosition(p);
+	}
+	for (int i=0; i<mursCDS.size(); i++){
+		Position p = mursCDS[i].getPosition();
+		p.x += x;
+		p.y += y;
+		p.z += z;
+		mursCDS[i].setPosition(p);
+	}
+	for (int i=0; i<ennemis.size(); i++){
+		Position p = ennemis[i].getPosition();
+		p.x += x;
+		p.y += y;
+		p.z += z;
+		ennemis[i].setPosition(p);
+	}
+	for (int i=0; i<loots.size(); i++){
+		Position p = loots[i].getPosition();
+		p.x += x;
+		p.y += y;
+		p.z += z;
+		loots[i].setPosition(p);
+	}
+
+}*/

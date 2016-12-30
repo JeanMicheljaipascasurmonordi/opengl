@@ -1,6 +1,4 @@
-//
-// Created by Vincent on 13/12/2016.
-//
+
 #define GLEW_STATIC
 
 
@@ -10,11 +8,11 @@
 using namespace glimac;
 
 struct Triangle{
-    glm::vec3 pos;
+    glm::vec3 position;
     glm::vec3 color;
 
-    Triangle( glm::vec3 pos, glm::vec3 color){
-        this->pos = pos;
+    Triangle( glm::vec3 position, glm::vec3 color){
+        this->position = position;
         this->color = color;
     }
 
@@ -111,7 +109,7 @@ Cube3D::Cube3D(){
 
     //on rebind vbo pour lui indiquer lequel il doit utiliser
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glVertexAttribPointer(VERTEX_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, pos) ) );
+    glVertexAttribPointer(VERTEX_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, position) ) );
     glVertexAttribPointer(VERTEX_ATTR_COLOR, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, color) ) );
     glBindBuffer(GL_ARRAY_BUFFER, 0 );
     glBindVertexArray(0);
@@ -232,7 +230,7 @@ Cube3D::Cube3D(int type){
 
     //on rebind vbo pour lui indiquer lequel il doit utiliser
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glVertexAttribPointer(VERTEX_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, pos) ) );
+    glVertexAttribPointer(VERTEX_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, position) ) );
     glVertexAttribPointer(VERTEX_ATTR_COLOR, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle), (const GLvoid*)( offsetof(Triangle, color) ) );
     glBindBuffer(GL_ARRAY_BUFFER, 0 );
     glBindVertexArray(0);

@@ -5,6 +5,7 @@
 #include "../include/murCulDeSac.h"
 #include "../include/position.h"
 #include "../include/loot.h"
+#include "../include/hero.h"
 #include "../include/ennemi.h"
 #include <iostream>
 #include <fstream>
@@ -30,6 +31,8 @@ public:
 
     void deleteLoot(int id);
     void deleteEnnemi(int id);
+    bool distanceFromObject(Position p);
+    void translateNiveau(double x, double y, double z);
 };
 
 

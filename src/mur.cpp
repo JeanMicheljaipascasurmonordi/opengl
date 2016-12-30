@@ -17,3 +17,7 @@ int Mur::getAngle(){
 Position Mur::getPosition(){
 	return position;
 }
+
+void Mur::setPosition(Position p){
+	this->position = p;
+}

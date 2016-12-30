@@ -25,6 +25,10 @@ int Ennemi::getFanDrop(){
 	return fanDrop;
 }
 
+Position Ennemi::getPosition(){
+	return position;
+}
+
 void Ennemi::setAngle(int angle){
 	this->angle = angle;
 }
@@ -33,6 +37,6 @@ void Ennemi::setPv(int pv){
 	this->pv = pv;
 }
 
-/*void Ennemi::attacked(Hero hero){
-	 pv = pv - hero.getDamage();
-}*/
+void Ennemi::setPosition(Position p){
+	this->position = p;
+}

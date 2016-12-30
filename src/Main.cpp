@@ -36,7 +36,11 @@ using namespace glimac;
 using namespace std;
 
 Hero hero;
+
 Niveau niveau = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/niveaux/niveautest.txt");
+Niveau nivTemoin = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/niveaux/niveautest.txt");
+FreeflyCamera camera;
+
 
 void initGlew() {
     // Initialize glew for OpenGL3+ support
@@ -49,8 +53,8 @@ void initGlew() {
 
 int main(int argc, char **argv) {
 
-   
-    cout<<niveau.getFanNeeded();
+
+
 
 
     cout << "test log console" << endl;
@@ -78,13 +82,8 @@ int main(int argc, char **argv) {
         cout << Mix_GetError() << endl;
 
 //===== Construction du monde =====//
-   /* Cube3D cube1, cube2, cube3;
-    //Sphere3D sphere(windowManager);
-    cube1.setTranslation( 0, 0, -5 );
-    cube2.setTranslation( 0, 0, -6 );
-    cube3.setTranslation( 1, 0, -7 );
-    cube3.setRotation( glm::vec3(0, 90, 0), 1.5f );*/
-    
+
+
     int size = niveau.murs.size();
     Cube3D cube[size];
     for(int i=0; i<size; i++){
@@ -92,8 +91,9 @@ int main(int argc, char **argv) {
         int alpha = niveau.murs[i].getAngle();
         cube[i] = Cube3D(1);
         cube[i].setTranslation(p.x, p.y, p.z);
+        cube[i].setPosition(p);
         if(alpha)
-            cube[i].setRotation(glm::vec3(0, alpha, 0), 1.5f);
+            cube[i].setRotation(glm::vec3(0, alpha, 0), 1.57f);
     }
 
     size = niveau.mursAngles.size();
@@ -104,40 +104,29 @@ int main(int argc, char **argv) {
         cubeAngle[i] = Cube3D(2);
         cubeAngle[i].setTranslation(p.x, p.y, p.z);
         if(alpha)
-            cubeAngle[i].setRotation(glm::vec3(0, alpha, 0), 1.5f);
+            cubeAngle[i].setRotation(glm::vec3(0, alpha, 0), 1.57f);
+    }
+
+    size = niveau.loots.size();
+    Cube3D loot[size];
+    for(int i=0; i<size; i++){
+        Position p = niveau.loots[i].getPosition();
+        loot[i] = Cube3D();
+        loot[i].setTranslation(p.x, p.y + 0.1, p.z);
+        loot[i].setScale(0.5, 0.5, 0.5);
+
     }
 
 
-    /*ifstream fileNiveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/src/test.txt");
-    int size;
-    if(fileNiveau){
-        for(int i=0; i<5; i++){
-            Cube3D cube;
-            int xcube = 0;
-            int ycube = 0;
-            int zcube = 0;
-            int alphacube = 0;
-            fileNiveau >> xcube;
-            cout<<"x = "<<xcube;
-            fileNiveau >> ycube;
-            fileNiveau >> zcube;
-            fileNiveau >> alphacube;
-            cube.setTranslation(xcube, ycube, zcube);
-            cube.setRotation(glm::vec3(0, alphacube, 0), 1.5f);
-        }
-    }
-    else{
-        cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
-    }*/
 
 
     // Application loop:
     bool done = false;
     while(!done) {
-        Position positionHero = newPosition(0,0,0);
-        hero.setPosition(positionHero);
-        hero.setAngle(0);
-
+        //Position positionCamera = newPosition(0,0,0);
+        //camera.setPosition(positionCamera);
+        int alpha = 0;
+        int move =0;
 
         if (samePosition(hero.getPosition(), niveau.positionFin) && hero.getNbrFan() == niveau.getFanNeeded()){
             cout<<"niveau fini"<<endl;
@@ -166,53 +155,85 @@ int main(int argc, char **argv) {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "z" << std::endl;
                             Position p = hero.getPosition();
-                            int alpha = hero.getAngle();
-                            int newz;
-                            newz = p.z + 1;
+                            //Position pCamera = camera.getPosition();
+                            double newz;
+                            newz = p.z + 0.5;
                             p.z = newz;
-                            hero.setPosition(p);}
+                           // pCamera.z = 0.5;
+                            camera.moveFront(0.5);
+                            move = 1;
+                            hero.setPosition(p);
+                            //camera.setPosition(pCamera);
+
+                        }
                             break;
                         case SDLK_s: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "s" << std::endl;
-                            Position p = hero.getPosition();
-                            int alpha = hero.getAngle();
-                            int newz;
-                            newz = p.z - 1;
-                            p.z = newz;
-                            hero.setPosition(p); }
+                            //Position p = hero.getPosition();
+                           // double newz;
+                            //Position pCamera = camera.getPosition();
+                           // pCamera.z = -0.5;
+                           // newz = p.z - 0.5;
+                           // p.z = newz;
+                            camera.moveFront(-0.5);
+                            move = 1;
+                            //hero.setPosition(p);
+                           //camera.setPosition(pCamera);
+
+                        }
                             break;
                         case SDLK_a: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "q" << std::endl;
-                            Position p = hero.getPosition();
-                            int alpha = hero.getAngle();
-                            int newx;                            
-                            newx = p.x + 1;                             
-                            p.x = newx;
-                            hero.setPosition(p); }
+                           // Position p = hero.getPosition();
+                           // double newx;
+                            //Position pCamera = camera.getPosition();
+                           // pCamera.x = 0.5;
+                            //newx = p.x + 0.5;
+                            //p.x = newx;
+                            camera.moveLeft(0.5);
+                            move = 1;
+                            //hero.setPosition(p);
+                            //camera.setPosition(pCamera);
+
+                        }
                             break;
                         case SDLK_d: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "d" << std::endl;
-                            Position p = hero.getPosition();
-                            int alpha = hero.getAngle();
-                            int newx;
-                            newx =p.x - 1;
-                            p.x = newx;
-                            hero.setPosition(p); }
+                            //Position p = hero.getPosition();
+                            //double newx;
+                            camera.moveLeft(-0.5);
+                            move = 1;
+                           // pCamera.x = -0.5;
+                            //newx =p.x - 0.5;
+                            //p.x = newx;
+
+                            //hero.setPosition(p);
+
+
+                        }
                             break;
                         case SDLK_RIGHT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "RIGHT" << std::endl;
-                            int alpha = hero.getAngle();
-                            hero.setAngle(alpha + 90); }
+                            //int alpha = hero.getAngle();
+                            //hero.setAngle(alpha + 90);
+                            camera.rotateLeft(-90);
+                            alpha += 90;
+                            move = 1;
+                            }
                             break;
                         case SDLK_LEFT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "LEFT" << std::endl;
-                            int alpha = hero.getAngle();
-                            hero.setAngle(alpha - 90); }
+                           // int alpha = hero.getAngle();
+                            //hero.setAngle(alpha - 90);
+                            camera.rotateLeft(90);
+                            alpha -= 90;
+                            move = 1;
+                            }
                             break;
                         case SDLK_SPACE: // Attaque
                             Mix_PlayChannel(-1, cindyattack, 0);
@@ -223,24 +244,23 @@ int main(int argc, char **argv) {
             }
         }
 
-        // Jeu
-        /*cube.addRotation( glm::vec3(0, 1, 0), 0.025f );
-        cube.addRotation( glm::vec3(1, 0, 0), 0.01f );
-        cube.addRotation( glm::vec3(0, 0, 1), 0.015f );
-        c1.addRotation( glm::vec3(1, 0, 0), 0.005f );
-        c2.addRotation( glm::vec3(1, 0, 0), 0.005f );
-        c3.addRotation( glm::vec3(1, 0, 0), 0.005f );
-        t.addRotation( glm::vec3(0, 1, 0), 0.005f );*/
+
 
         // Clear de la fenêtre avant le nouveau rendu
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Rendu des objets de la scene
-        Position p = hero.getPosition();
-        int alpha = hero.getAngle();
+       // Position p = camera.getPosition();
+        Position pHero = hero.getPosition();
+
+        int alphaHero = hero.getAngle();
+
         for ( std::vector<Object3D*>::const_iterator it = Object3D::getSceneObjects().begin() ;  it != Object3D::getSceneObjects().end() ; it++ ) {
-            (*it)->addTranslation(p.x, p.y, p.z);
-            if (alpha != 0) (*it)->addRotation(glm::vec3(0, alpha, 0), 1.5f);
+            if (move==1) (*it)->translationMatrix *= camera.getViewMatrix(); 
+
+
+
+
             (*it)->draw();
         }
 
@@ -259,3 +279,4 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+
