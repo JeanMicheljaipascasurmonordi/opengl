@@ -3,7 +3,9 @@
 
 
 typedef struct{
+
 	double x,y,z;
+
 }Position;
 
 

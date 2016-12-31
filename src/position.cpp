@@ -11,7 +11,9 @@ Position initPosition(){
 	return p;
 }
 
+
 Position newPosition(double coordx, double coordy, double coordz){
+
 	Position p;
 	p.x = coordx;
 	p.y = coordy;

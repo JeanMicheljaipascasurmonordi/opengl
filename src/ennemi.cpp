@@ -1,7 +1,5 @@
 #include "../include/ennemi.h"
 
-#include <iostream>
-
 Ennemi::Ennemi(int id, Position position, int angle, int pv, int damage, int fanDrop){
 	this->id = id;
 	this->position = position;
@@ -9,6 +7,10 @@ Ennemi::Ennemi(int id, Position position, int angle, int pv, int damage, int fan
 	this->pv = pv;
 	this->damage = damage;
 	this->fanDrop = fanDrop;
+}
+
+Position Ennemi::getPosition(){
+	return position;
 }
 
 int Ennemi::getId(){

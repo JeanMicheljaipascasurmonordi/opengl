@@ -147,14 +147,21 @@ Cube3D::Cube3D(){
 
 Cube3D::Cube3D(int type){
     //charge les shaders que l'on a ajouté dans le dossier shaders
+    std::unique_ptr<Image> image;
+
 
     std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
+
+    //image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
+
     GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture( GL_TEXTURE_2D, texture );
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA ,GL_FLOAT, image->getPixels());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     FilePath applicationPath(".\\opengl.exe");
     Program program = loadProgram(applicationPath.dirPath() + "\\..\\..\\shaders\\CubeTex.vs.glsl",
@@ -190,40 +197,51 @@ Cube3D::Cube3D(int type){
     std::vector<Triangle> vertices;
     //TOP
     vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0), glm::vec2(1.f, 0.f)));//0
-    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(1.f, 0.5f)));//1
-    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 1), glm::vec2(0.66f, 0.5f)));//2
+    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(1.f, 0.33f)));//1
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 1), glm::vec2(0.66f, 0.33f)));//2
     vertices.push_back( Triangle( upD, glm::vec3(0, 1, 1), glm::vec2(0.66f, 0.f)));//3
 
     //BOT
-    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.5f)));//4
-    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));//5
-    vertices.push_back( Triangle( lowC, glm::vec3(1, 1, 0), glm::vec2(0.f , 1.f)));//6
-    vertices.push_back( Triangle( lowD, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.5f)));//7
+    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.33f)));//4
+    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.33f, 0.66f)));//5
+    vertices.push_back( Triangle( lowC, glm::vec3(1, 1, 0), glm::vec2(0.f , 0.66f)));//6
+    vertices.push_back( Triangle( lowD, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.33f)));//7
 
     //RIGHT
-    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0), glm::vec2(1.f, 0.5f)));//8
-    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.66f, 1.f)));//9
-    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(1.f, 1.f)));//10
-    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.5f)));//11
+    vertices.push_back( Triangle( upA, glm::vec3(1, 0, 0), glm::vec2(1.f, 0.33f)));//8
+    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.66f, 0.66f)));//9
+    vertices.push_back( Triangle( lowA, glm::vec3(0, 0, 1), glm::vec2(1.f, 0.66f)));//10
+    vertices.push_back( Triangle( upB, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.33f)));//11
 
     //LEFT
-    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.66f, 0.5f)));//12
-    vertices.push_back( Triangle( lowC, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));//13
-    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.66f, 1.f)));//14
-    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.33f, 0.5f)));//15
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.66f, 0.33f)));//12
+    vertices.push_back( Triangle( lowC, glm::vec3(1, 0, 1), glm::vec2(0.33f, 0.66f)));//13
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.66f, 0.66f)));//14
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.33f, 0.33f)));//15
 
     //BACK
     vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.33f, 0.f)));//16
-    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(0.66f, 0.5f)));//17
-    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.5f)));//18
+    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(0.66f, 0.33f)));//17
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.33f)));//18
     vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.f)));//19
 
     //FRONT
     vertices.push_back( Triangle( upB, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.f)));//20
     vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.33f, 0.f)));//21
-    vertices.push_back( Triangle( lowC, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.5f)));//22
-    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.f, 0.5f)));//23
+    vertices.push_back( Triangle( lowC, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.33f)));//22
+    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.f, 0.33f)));//23
 
+    //MICRO
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.66f)));//24
+    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));//25
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.f, 1.f)));//26
+    vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(0.33f, 0.66f)));//27
+
+    //ENNEMI
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.33f, 0.66f)));//28
+    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(0.66f, 1.f)));//29
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.33f, 1.f)));//30
+    vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.66f)));//31
 
     glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(Triangle), vertices.data(), GL_STATIC_DRAW);
 
@@ -298,8 +316,25 @@ Cube3D::Cube3D(int type){
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
+    if(type == 4){
+        uint32_t indices[] = {
+                27, 24, 26,//
+                27, 26, 25,
+        };
+        // => On remplit l'IBO avec les indices:
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
 
-
+    if(type == 5){
+        uint32_t indices[] = {
+                31, 28, 30,//
+                31, 30, 29,
+        };
+        // => On remplit l'IBO avec les indices:
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
 
     glGenVertexArrays(1, &vao);
 
