@@ -23,7 +23,7 @@ public:
 
     //void attacked(Hero hero);
 
-
+    Position getPosition();
     int getAngle();
     int getPv();
     int getDamage();

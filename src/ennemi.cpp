@@ -35,3 +35,7 @@ void Ennemi::setPv(int pv){
 void Ennemi::setPosition(Position p){
 	this->position = p;
 }
+
+Position Ennemi::getPosition(){
+	return position;
+}
