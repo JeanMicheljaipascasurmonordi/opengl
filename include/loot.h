@@ -13,6 +13,7 @@ public:
     int getID();
     int getNbrFan();
     Position getPosition();
+    void setNbrFan(int nbr);
 
 };
 

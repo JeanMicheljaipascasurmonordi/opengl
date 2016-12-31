@@ -20,3 +20,6 @@ Position Loot::getPosition(){
 	return position;
 }
 
+void Loot::setNbrFan(int nbr){
+	this->nbrFan = nbr;
+}

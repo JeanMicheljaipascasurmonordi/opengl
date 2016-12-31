@@ -150,9 +150,9 @@ Cube3D::Cube3D(int type){
     std::unique_ptr<Image> image;
 
 
-    std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
+     //image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
 
-    //image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
+    image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/texturepack.png");
 
     GLuint texture;
     glGenTextures(1, &texture);

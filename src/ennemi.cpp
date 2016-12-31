@@ -9,9 +9,6 @@ Ennemi::Ennemi(int id, Position position, int angle, int pv, int damage, int fan
 	this->fanDrop = fanDrop;
 }
 
-Position Ennemi::getPosition(){
-	return position;
-}
 
 int Ennemi::getId(){
 	return id;
