@@ -148,18 +148,17 @@ int main(int argc, char **argv) {
     // Application loop:
     bool done = false;
     while(!done) {
-        Position positionCamera = newPosition(0,0,0);
+        Position positionCamera = newPosition(0, 0, 0);
         camera.setPosition(positionCamera);
-      
-       
 
 
-        if (samePosition(hero.getPosition(), niveau.positionFin) && hero.getNbrFan() == niveau.getFanNeeded()){
-            cout<<"niveau fini"<<endl;
+        if (samePosition(hero.getPosition(), niveau.positionFin) && hero.getNbrFan() == niveau.getFanNeeded()) {
+            cout << "niveau fini" << endl;
         }
 
-        for (int i=0; i<niveau.loots.size(); i++){
-            if (samePosition(hero.getPosition(), niveau.loots[i].getPosition())){
+        for (int i = 0; i < niveau.loots.size(); i++) {
+            //cout << distance(hero.getPosition(), niveau.loots[i].getPosition())<<endl;    
+            if (samePosition(hero.getPosition(), niveau.loots[i].getPosition())) {
                 int fan = hero.getNbrFan();
                 hero.setNbrFan(fan + niveau.loots[i].getNbrFan());
                 niveau.deleteLoot(niveau.loots[i].getID());
@@ -167,25 +166,27 @@ int main(int argc, char **argv) {
                 //loot[i].setTranslation(40, 40, 40);
             }
         }
+         
 
 
         // Event loop:
         SDL_Event e;
-        if(SDL_PollEvent( &e ) == 1) {
-            if(e.type == SDL_QUIT) {
+        if (SDL_PollEvent(&e) == 1) {
+            if (e.type == SDL_QUIT) {
                 done = true; // Leave the loop after this iteration
             }
 
-            switch(e.type) {
+            switch (e.type) {
                 case SDL_KEYDOWN:
                     switch (e.key.keysym.sym) {
+
                         case SDLK_w:{
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "z" << std::endl;
                             Position p = hero.getPosition();
                             Position pCamera = camera.getPosition();
                             double newz;
-                            newz = p.z + 0.5;
+                            newz = p.z - 0.5;
                             p.z = newz;
                             pCamera.z = 0.5;
 
@@ -202,10 +203,8 @@ int main(int argc, char **argv) {
                             double newz;
                             Position pCamera = camera.getPosition();
                             pCamera.z = -0.5;
-                            newz = p.z - 0.5;
+                            newz = p.z + 0.5;
                             p.z = newz;
-
-
                             hero.setPosition(p);
                             camera.setPosition(pCamera);
                         }
@@ -218,14 +217,13 @@ int main(int argc, char **argv) {
                             double newx;
                             Position pCamera = camera.getPosition();
                             pCamera.x = 0.5;
-                            newx = p.x + 0.5;
+                            newx = p.x - 0.5;
                             p.x = newx;
                             //move = 1;
                             hero.setPosition(p);
                             camera.setPosition(pCamera);
                         }
                         break;
-
                         case SDLK_d : {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "d" << std::endl;
@@ -277,15 +275,19 @@ int main(int argc, char **argv) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Rendu des objets de la scene
-        Position p = camera.getPosition();
+        Position pC = camera.getPosition();
         Position pHero = hero.getPosition();
 
         int alphaHero = hero.getAngle();
 
-        for ( std::vector<Object3D*>::const_iterator it = Object3D::getSceneObjects().begin() ;  it != Object3D::getSceneObjects().end() ; it++ ) {
-            (*it)->addTranslation(p.x, p.y, p.z); 
-
-
+        for (std::vector<Object3D *>::const_iterator it = Object3D::getSceneObjects().begin();
+             it != Object3D::getSceneObjects().end(); it++) {
+            Position newp = (*it)->getPosition();
+            newp.x -= pC.x;
+            newp.x -= pC.y;
+            newp.x -= pC.z;
+            (*it)->setPosition(newp);
+            (*it)->addTranslation(pC.x, pC.y, pC.z);
 
 
             (*it)->draw();
