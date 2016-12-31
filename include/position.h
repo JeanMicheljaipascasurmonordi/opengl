@@ -3,12 +3,12 @@
 
 
 typedef struct{
-	int x,y,z;
+	float x,y,z;
 }Position;
 
 
 Position initPosition();
-Position newPosition(int coordx, int coordy, int coordz);
+Position newPosition(float coordx, float coordy, float coordz);
 bool samePosition(Position p1, Position p2);
 
 

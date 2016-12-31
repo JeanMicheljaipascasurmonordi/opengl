@@ -10,7 +10,7 @@ Position initPosition(){
 	return p;
 }
 
-Position newPosition(int coordx, int coordy, int coordz){
+Position newPosition(float coordx, float coordy, float coordz){
 	Position p;
 	p.x = coordx;
 	p.y = coordy;

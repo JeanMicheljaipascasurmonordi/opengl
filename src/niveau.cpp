@@ -87,7 +87,7 @@ Niveau::Niveau(const char* file){
 		fileNiveau >> nbrLoot;
 		for (int i=0; i<nbrLoot; i++){
 			Position p;
-			int x, y, z;
+			float x, y, z;
 			fileNiveau >> x;
 			fileNiveau >> y;
 			fileNiveau >> z;

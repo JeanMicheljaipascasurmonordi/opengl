@@ -3,6 +3,8 @@
 #include "../include/position.h"
 //#include "../include/hero.h"
 #include <iostream>
+#include <glimac/Program.hpp>
+#include <glimac/Image.hpp>
 
 class Ennemi{
     int id;
@@ -12,6 +14,8 @@ class Ennemi{
     int damage;
     int fanDrop;
 
+
+
 public:
     Ennemi(int id, Position position, int angle, int pv, int damage, int fanDrop);
     int getId();
@@ -19,7 +23,7 @@ public:
 
     //void attacked(Hero hero);
 
-
+    Position getPosition();
     int getAngle();
     int getPv();
     int getDamage();
