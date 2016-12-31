@@ -23,9 +23,14 @@ struct Triangle{
 };
 
 Cube3D::Cube3D(){
-    std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
-    if(image == NULL)
-        std::cout << "erreur image" << std::endl;
+    //charge les shaders que l'on a ajouté dans le dossier shaders
+    std::unique_ptr<Image> image;
+
+
+    //std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
+
+    image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
+
     GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture( GL_TEXTURE_2D, texture );
@@ -150,9 +155,9 @@ Cube3D::Cube3D(int type){
     std::unique_ptr<Image> image;
 
 
-    std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
+    //std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
 
-    //image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
+    image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
 
     GLuint texture;
     glGenTextures(1, &texture);

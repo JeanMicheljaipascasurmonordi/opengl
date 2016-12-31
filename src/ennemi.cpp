@@ -27,10 +27,6 @@ int Ennemi::getFanDrop(){
 	return fanDrop;
 }
 
-Position Ennemi::getPosition(){
-	return position;
-}
-
 void Ennemi::setAngle(int angle){
 	this->angle = angle;
 }

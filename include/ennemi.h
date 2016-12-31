@@ -28,7 +28,6 @@ public:
     int getPv();
     int getDamage();
     int getFanDrop();
-    Position getPosition();
     void setPv(int pv);
     void setAngle(int angle);
     void setPosition(Position p);
