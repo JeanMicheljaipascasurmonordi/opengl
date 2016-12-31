@@ -8,7 +8,7 @@
 using namespace glimac;
 
 struct Triangle{
-    glm::vec3 position;
+    glm::vec3 pos;
     glm::vec3 color;
     glm::vec2 uv;
 
@@ -23,7 +23,7 @@ struct Triangle{
 };
 
 Cube3D::Cube3D(){
-    std::unique_ptr<Image> image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\Cube.jpg");
+    std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
     if(image == NULL)
         std::cout << "erreur image" << std::endl;
     GLuint texture;
@@ -148,7 +148,7 @@ Cube3D::Cube3D(){
 Cube3D::Cube3D(int type){
     //charge les shaders que l'on a ajouté dans le dossier shaders
 
-    std::unique_ptr<Image> image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\Cube.jpg");
+    std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
     GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture( GL_TEXTURE_2D, texture );

@@ -23,6 +23,6 @@ double distance(Position p1, Position p2){
 }
 
 bool samePosition(Position p1, Position p2){
-	return (distance(p1,p2) < 0.1);
+	return (distance(p1,p2) < 0.5);
 }
 
