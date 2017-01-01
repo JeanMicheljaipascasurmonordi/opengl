@@ -38,7 +38,7 @@ using namespace std;
 Hero hero;
 Hero camera;
 
-Niveau niveau = Niveau("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant02\\opengl\\assets\\niveaux\\niveautest.txt");
+Niveau niveau = Niveau("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\niveaux\\niveautest.txt");
 //FreeflyCamera camera;
 
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
         cout << "erreur Initialisation Mixer" << endl;
 
     Mix_Music *musique = NULL;
-    musique = Mix_LoadMUS("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant02\\opengl\\assets\\music\\cindysander_papillondelumiere.mp3");
+    musique = Mix_LoadMUS("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\music\\cindysander_papillondelumiere.mp3");
     if(musique == NULL)
         cout << "erreur repertoire musique" << endl;
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
 
         loot[i] = Cube3D(4);
         loot[i].setTranslation(p.x, p.y, p.z);
-        //loot[i].setScale(0.5, 0.5, 0.5);
+        loot[i].setScale(0.1, 0.1, 1);
     }
 
     size = niveau.ennemis.size();
@@ -168,12 +168,21 @@ int main(int argc, char **argv) {
                 int fan = hero.getNbrFan();
                 hero.setNbrFan(fan + niveau.loots[i].getNbrFan());
                 niveau.loots[i].setNbrFan(0);
-                cout << "loot !" << endl;
                 loot[i].setTranslation(40, 40, 40);
             }
         }
 
+         for (int i = 0; i < niveau.ennemis.size(); i++) {
 
+            if (niveau.ennemis[i].getPv() < 1) {
+                int fan = hero.getNbrFan();
+                hero.setNbrFan(fan + niveau.ennemis[i].getFanDrop());
+                niveau.ennemis[i].setNbrFan(0);
+                cout << "ennemis mort" << endl;
+                ennemi[i].setTranslation(40, 40, 40);
+            }
+        }
+         
 
         // Event loop:
         SDL_Event e;
@@ -270,6 +279,14 @@ int main(int argc, char **argv) {
                         case SDLK_SPACE: {// Attaque
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "espace" << std::endl;
+                            for (int i=0; i < niveau.ennemis.size(); i++){                                
+                                if (abs(distance(hero.getPosition(), niveau.ennemis[i].getPosition())) < 2){
+                                    cout<<"Attaque"<<endl;
+                                    int pv = niveau.ennemis[i].getPv();
+                                    niveau.ennemis[i].setPv(pv - 1);
+                                    
+                                }
+                            }
                         }
                             break;
                         default:

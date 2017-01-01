@@ -235,10 +235,10 @@ Cube3D::Cube3D(int type){
     vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(1.f, 0.66f)));//23
 
     //MICRO
-    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.66f)));//24
-    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(0.33f, 1.f)));//25
-    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.f, 1.f)));//26
-    vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(0.33f, 0.66f)));//27
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.15f, 0.93f)));//24
+    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(0.19f, 1.f)));//25
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.15f, 1.f)));//26
+    vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(0.19f, 0.93f)));//27
 
     //ENNEMI
     vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.33f, 0.66f)));//28
