@@ -32,6 +32,7 @@ public:
     void setPv(int pv);
     void setAngle(int angle);
     void setPosition(Position p);
+    void setNbrFan(int nbr);
 
 };
 

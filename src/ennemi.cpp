@@ -39,3 +39,7 @@ void Ennemi::setPv(int pv){
 void Ennemi::setPosition(Position p){
 	this->position = p;
 }
+
+void Ennemi::setNbrFan(int nbr){
+	this->fanDrop = nbr;
+}

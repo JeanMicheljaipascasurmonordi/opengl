@@ -168,8 +168,18 @@ int main(int argc, char **argv) {
                 int fan = hero.getNbrFan();
                 hero.setNbrFan(fan + niveau.loots[i].getNbrFan());
                 niveau.loots[i].setNbrFan(0);
-                cout << "loot !" << endl;
                 loot[i].setTranslation(40, 40, 40);
+            }
+        }
+         
+         for (int i = 0; i < niveau.ennemis.size(); i++) {
+
+            if (niveau.ennemis[i].getPv() < 1) {
+                int fan = hero.getNbrFan();
+                hero.setNbrFan(fan + niveau.ennemis[i].getFanDrop());
+                niveau.ennemis[i].setNbrFan(0);
+                cout << "ennemis mort" << endl;
+                ennemi[i].setTranslation(40, 40, 40);
             }
         }
          
@@ -272,6 +282,14 @@ int main(int argc, char **argv) {
                         case SDLK_SPACE: {// Attaque
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "espace" << std::endl;
+                            for (int i=0; i < niveau.ennemis.size(); i++){                                
+                                if (abs(distance(hero.getPosition(), niveau.ennemis[i].getPosition())) < 2){
+                                    cout<<"Attaque"<<endl;
+                                    int pv = niveau.ennemis[i].getPv();
+                                    niveau.ennemis[i].setPv(pv - 1);
+                                    
+                                }
+                            }
                         }
                             break;
                         default:
