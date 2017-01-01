@@ -38,7 +38,7 @@ using namespace std;
 Hero hero;
 Hero camera;
 
-Niveau niveau = Niveau("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\niveaux\\niveautest.txt");
+Niveau niveau = Niveau("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant02\\opengl\\assets\\niveaux\\niveautest.txt");
 //FreeflyCamera camera;
 
 
@@ -54,10 +54,6 @@ void initGlew() {
 
 int main(int argc, char **argv) {
 
-
-
-
-
     cout << "test log console" << endl;
 
     // Init de l'application
@@ -71,7 +67,7 @@ int main(int argc, char **argv) {
         cout << "erreur Initialisation Mixer" << endl;
 
     Mix_Music *musique = NULL;
-    musique = Mix_LoadMUS("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\music\\cindysander_papillondelumiere.mp3");
+    musique = Mix_LoadMUS("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant02\\opengl\\assets\\music\\cindysander_papillondelumiere.mp3");
     if(musique == NULL)
         cout << "erreur repertoire musique" << endl;
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
@@ -115,11 +111,16 @@ int main(int argc, char **argv) {
     for(int i=0; i<size; i++){
         Position p = niveau.mursCDS[i].getPosition();
         float alpha = niveau.mursCDS[i].getAngle();
-        cubeCDS[i] = Cube3D(3);
+
+        if(i==size-1)
+            cubeCDS[i] = Cube3D(6);
+        else
+            cubeCDS[i] = Cube3D(3);
+
         cubeCDS[i].setTranslation(p.x, p.y, p.z);
+
         if(alpha)
             cubeCDS[i].setRotation(glm::vec3(0, 1, 0), alpha);
-
     }
 
     size = niveau.loots.size();
@@ -129,7 +130,7 @@ int main(int argc, char **argv) {
 
         loot[i] = Cube3D(4);
         loot[i].setTranslation(p.x, p.y, p.z);
-        loot[i].setScale(0.5, 0.5, 0.5);
+        //loot[i].setScale(0.5, 0.5, 0.5);
     }
 
     size = niveau.ennemis.size();
@@ -140,10 +141,15 @@ int main(int argc, char **argv) {
         ennemi[i].setTranslation(p.x, p.y, p.z);
     }
 
+
+
+
+
+
+
     int alpha;
     int newx, newz;
     Position p;
-    int test=0;
 
     // Application loop:
     bool done = false;
@@ -157,16 +163,16 @@ int main(int argc, char **argv) {
         }
 
         for (int i = 0; i < niveau.loots.size(); i++) {
-            //cout << distance(hero.getPosition(), niveau.loots[i].getPosition())<<endl;    
+            //cout << distance(hero.getPosition(), niveau.loots[i].getPosition())<<endl;
             if (samePosition(hero.getPosition(), niveau.loots[i].getPosition())) {
                 int fan = hero.getNbrFan();
                 hero.setNbrFan(fan + niveau.loots[i].getNbrFan());
-                niveau.deleteLoot(niveau.loots[i].getID());
-                cout<<"loot !"<<endl;
-                //loot[i].setTranslation(40, 40, 40);
+                niveau.loots[i].setNbrFan(0);
+                cout << "loot !" << endl;
+                loot[i].setTranslation(40, 40, 40);
             }
         }
-         
+
 
 
         // Event loop:
@@ -179,8 +185,7 @@ int main(int argc, char **argv) {
             switch (e.type) {
                 case SDL_KEYDOWN:
                     switch (e.key.keysym.sym) {
-
-                        case SDLK_w:{
+                        case SDLK_w: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "z" << std::endl;
                             Position p = hero.getPosition();
@@ -193,9 +198,9 @@ int main(int argc, char **argv) {
 
                             hero.setPosition(p);
                             camera.setPosition(pCamera);
-                            }
-                            break;
 
+                        }
+                            break;
                         case SDLK_s: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "s" << std::endl;
@@ -205,12 +210,14 @@ int main(int argc, char **argv) {
                             pCamera.z = -0.5;
                             newz = p.z + 0.5;
                             p.z = newz;
+
+
                             hero.setPosition(p);
                             camera.setPosition(pCamera);
+
                         }
                             break;
-
-                        case SDLK_a:{
+                        case SDLK_a: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "q" << std::endl;
                             Position p = hero.getPosition();
@@ -219,54 +226,57 @@ int main(int argc, char **argv) {
                             pCamera.x = 0.5;
                             newx = p.x - 0.5;
                             p.x = newx;
-                            //move = 1;
+
                             hero.setPosition(p);
                             camera.setPosition(pCamera);
+
                         }
-                        break;
-                        case SDLK_d : {
+
+                            break;
+                        case SDLK_d: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "d" << std::endl;
                             Position p = hero.getPosition();
                             Position pCamera = camera.getPosition();
                             double newx;
-                            //move = 1;
                             pCamera.x = -0.5;
-                            newx = p.x - 0.5;
+                            newx = p.x + 0.5;
                             p.x = newx;
                             camera.setPosition(pCamera);
                             hero.setPosition(p);
-                        }
-                        break;
 
+
+                        }
+
+                            break;
                         case SDLK_RIGHT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "RIGHT" << std::endl;
-                            alpha = hero.getAngle();
-                            hero.setAngle(alpha + 90);
+                            int alphaH = camera.getAngle();
+                            camera.setAngle(alphaH + 90);
                         }
-                        break;
 
-
+                            break;
                         case SDLK_LEFT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "LEFT" << std::endl;
-                            alpha = hero.getAngle();
-                            hero.setAngle(alpha - 90);
-                        }
-                        break;
+                            int alphaH = hero.getAngle();
+                            hero.setAngle(alphaH - 90);
 
-                        case SDLK_SPACE: { // Attaque
+
+                        }
+
+                            break;
+                        case SDLK_SPACE: {// Attaque
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "espace" << std::endl;
                         }
-                        break;
-
+                            break;
                         default:
                             break;
                     }
-                default:
                     break;
+
             }
         }
 
@@ -308,4 +318,3 @@ int main(int argc, char **argv) {
 
     return 0;
 }
-

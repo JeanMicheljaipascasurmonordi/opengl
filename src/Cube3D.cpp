@@ -23,14 +23,11 @@ struct Triangle{
 };
 
 Cube3D::Cube3D(){
-    //charge les shaders que l'on a ajouté dans le dossier shaders
     std::unique_ptr<Image> image;
-
-
-    //std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
-
     image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
 
+    if(image == NULL)
+        std::cout << "erreur image" << std::endl;
     GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture( GL_TEXTURE_2D, texture );
@@ -102,25 +99,25 @@ Cube3D::Cube3D(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
 
-        uint32_t indices[] = {
-                0, 1, 2,//faceSup
-                0, 2, 3,
-                8, 10, 9,//face droite
-                8, 9, 11,
-                //0, 4, 7,//
-                //0, 7, 3,
-                12, 14, 13,//
-                12, 13, 15,
-                //1, 2, 6,//
-                //1, 6, 5,
-                4, 5, 6,//
-                4, 6, 7
-        };
+    uint32_t indices[] = {
+            0, 1, 2,//faceSup
+            0, 2, 3,
+            8, 10, 9,//face droite
+            8, 9, 11,
+            //0, 4, 7,//
+            //0, 7, 3,
+            12, 14, 13,//
+            12, 13, 15,
+            //1, 2, 6,//
+            //1, 6, 5,
+            4, 5, 6,//
+            4, 6, 7
+    };
 
-        // => On remplit l'IBO avec les indices:
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 24 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+    // => On remplit l'IBO avec les indices:
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 24 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     glGenVertexArrays(1, &vao);
 
@@ -155,24 +152,26 @@ Cube3D::Cube3D(int type){
     std::unique_ptr<Image> image;
 
 
-    //std::unique_ptr<Image> image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
+    //image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
 
     image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
+
     GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture( GL_TEXTURE_2D, texture );
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_RGBA ,GL_FLOAT, image->getPixels());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     FilePath applicationPath(".\\opengl.exe");
     Program program = loadProgram(applicationPath.dirPath() + "\\..\\..\\shaders\\CubeTex.vs.glsl",
                                   applicationPath.dirPath() + "\\..\\..\\shaders\\CubeTex.fs.glsl");
     program.use();
     // Matrice de transformation
     this->uModelMatrixID = glGetUniformLocation( program.getGLId(), "MVP" );
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glDepthMask(GL_FALSE);
 
 
     /*********************************
@@ -229,11 +228,11 @@ Cube3D::Cube3D(int type){
     vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.33f)));//18
     vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(0.66f, 0.f)));//19
 
-    //FRONT
-    vertices.push_back( Triangle( upB, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.f)));//20
-    vertices.push_back( Triangle( lowB, glm::vec3(1, 0, 1), glm::vec2(0.33f, 0.f)));//21
-    vertices.push_back( Triangle( lowC, glm::vec3(0, 0, 1), glm::vec2(0.33f, 0.33f)));//22
-    vertices.push_back( Triangle( upC, glm::vec3(1, 1, 0), glm::vec2(0.f, 0.33f)));//23
+    //EXIT
+    vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.66f, 0.66f)));//20
+    vertices.push_back( Triangle( lowA, glm::vec3(1, 0, 1), glm::vec2(1.f, 1.f)));//21
+    vertices.push_back( Triangle( lowD, glm::vec3(0, 0, 1), glm::vec2(0.66f, 1.f)));//22
+    vertices.push_back( Triangle( upA, glm::vec3(1, 1, 0), glm::vec2(1.f, 0.66f)));//23
 
     //MICRO
     vertices.push_back( Triangle( upD, glm::vec3(1, 0, 0), glm::vec2(0.f, 0.66f)));//24
@@ -262,8 +261,8 @@ Cube3D::Cube3D(int type){
                 0, 2, 3,
                 8, 10, 9,//face droite
                 8, 9, 11,
-                //0, 4, 7,//
-                //0, 7, 3,
+                  //0, 4, 7,//
+                  //0, 7, 3,
                 12, 14, 13,//
                 12, 13, 15,
                 //1, 2, 6,//
@@ -340,6 +339,28 @@ Cube3D::Cube3D(int type){
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
+    if(type == 6){
+        uint32_t indices[] = {
+                0, 1, 2,//faceSup
+                0, 2, 3,
+                8, 10, 9,//face droite
+                8, 9, 11,
+                23, 20, 22,//
+                23, 22, 21,
+                12, 14, 13,//
+                12, 13, 15,
+
+                //1, 2, 6,//
+                //1, 6, 5,
+
+                4, 5, 6,//
+                4, 6, 7
+        };
+        // => On remplit l'IBO avec les indices:
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 24 * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
     glGenVertexArrays(1, &vao);
 
     //binding du vao : pas de cible car une seule cible possible pour vao
@@ -389,4 +410,3 @@ void Cube3D::draw() {
 
     glBindVertexArray(0);
 }
-
