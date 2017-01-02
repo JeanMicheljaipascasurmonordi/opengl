@@ -34,12 +34,12 @@
 
 using namespace glimac;
 using namespace std;
-
+#define PI 3.14159265
 Hero hero;
-Hero camera;
+//Hero camera;
 
 Niveau niveau = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/niveaux/niveautest.txt");
-//FreeflyCamera camera;
+FreeflyCamera camera;
 
 
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
         cout << "erreur Initialisation Mixer" << endl;
 
     Mix_Music *musique = NULL;
-    musique = Mix_LoadMUS("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\music\\cindysander_papillondelumiere.mp3");
+    musique = Mix_LoadMUS("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/music/cindysander_papillondelumiere.mp3");
     if(musique == NULL)
         cout << "erreur repertoire musique" << endl;
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
@@ -155,8 +155,8 @@ int main(int argc, char **argv) {
     // Application loop:
     bool done = false;
     while(!done) {
-        Position positionCamera = newPosition(0, 0, 0);
-        camera.setPosition(positionCamera);
+        //Position positionCamera = newPosition(0, 0, 0);
+        //camera.setPosition(positionCamera);
 
 
         if (samePosition(hero.getPosition(), niveau.positionFin) && hero.getNbrFan() == niveau.getFanNeeded()) {
@@ -200,16 +200,17 @@ int main(int argc, char **argv) {
                             Mix_PlayChannel(1, cindymove, 0);
                             cout << "z" << std::endl;
                             Position p = hero.getPosition();
-                            Position pCamera = camera.getPosition();
-                            double newz;
-                            newz = p.z - 0.5;
-                            p.z = newz;
-                            pCamera.z = 0.5;
+                            int angle = hero.getAngle();
+                           
+                            p.z = p.z - 0.5*cos(angle * PI /180);
+                            p.x = p.x + 0.5*sin(angle * PI /180);
+                            
+                           
                             cout<<niveau.distanceFromObject(p)<<endl;
                             if(niveau.distanceFromObject(p)){
                                 hero.setPosition(p);
-                                camera.setPosition(pCamera);
-                                //camera.moveFront(0.5);
+                                //camera.setPosition(pCamera);
+                                camera.moveFront(0.5);
                             }
 
                         }
@@ -218,16 +219,15 @@ int main(int argc, char **argv) {
                             Mix_PlayChannel(1, cindymove, 0);
                             cout << "s" << std::endl;
                             Position p = hero.getPosition();
-                            double newz;
-                            Position pCamera = camera.getPosition();
-                            pCamera.z = -0.5;
-                            newz = p.z + 0.5;
-                            p.z = newz;
+                            int angle = hero.getAngle();
+                           
+                            p.z = p.z + 0.5*cos(angle * PI /180);
+                            p.x = p.x - 0.5*sin(angle * PI /180);
 
                             if(niveau.distanceFromObject(p)){
                                 hero.setPosition(p);
-                                camera.setPosition(pCamera);
-                                //camera.moveFront(-0.5); 
+                                //camera.setPosition(pCamera);
+                                camera.moveFront(-0.5); 
                             }
 
                         }
@@ -236,15 +236,14 @@ int main(int argc, char **argv) {
                             Mix_PlayChannel(1, cindymove, 0);
                             cout << "q" << std::endl;
                             Position p = hero.getPosition();
-                            double newx;
-                            Position pCamera = camera.getPosition();
-                            pCamera.x = 0.5;
-                            newx = p.x - 0.5;
-                            p.x = newx;
+                            int angle = hero.getAngle();
+                           
+                            p.z = p.z - 0.5*sin(angle * PI /180);
+                            p.x = p.x - 0.5*cos(angle * PI /180);
                             if(niveau.distanceFromObject(p)){
                                 hero.setPosition(p);
-                                camera.setPosition(pCamera);
-                                //camera.moveLeft(0.5);
+                                //camera.setPosition(pCamera);
+                                camera.moveLeft(0.5);
                             }
 
                         }
@@ -254,15 +253,14 @@ int main(int argc, char **argv) {
                             Mix_PlayChannel(1, cindymove, 0);
                             cout << "d" << std::endl;
                             Position p = hero.getPosition();
-                            Position pCamera = camera.getPosition();
-                            double newx;
-                            pCamera.x = -0.5;
-                            newx = p.x + 0.5;
-                            p.x = newx;
+                            int angle = hero.getAngle();
+                           
+                            p.z = p.z + 0.5*sin(angle * PI /180);
+                            p.x = p.x + 0.5*cos(angle * PI /180);
                             if(niveau.distanceFromObject(p)){
-                                camera.setPosition(pCamera);
+                               // camera.setPosition(pCamera);
                                 hero.setPosition(p);
-                                //camera.moveLeft(-0.5);
+                                camera.moveLeft(-0.5);
                             }
 
 
@@ -273,8 +271,8 @@ int main(int argc, char **argv) {
                             Mix_PlayChannel(1, cindymove, 0);
                             cout << "RIGHT" << std::endl;
                             int alphaH = hero.getAngle();
-                            camera.setAngle(alphaH + 90);
-                            //camera.rotate(-90);
+                            hero.setAngle(alphaH + 90);
+                            camera.rotateLeft(-90);
                         }
 
                             break;
@@ -283,7 +281,7 @@ int main(int argc, char **argv) {
                             cout << "LEFT" << std::endl;
                             int alphaH = hero.getAngle();
                             hero.setAngle(alphaH - 90);
-                            //camera.rotate(90);
+                            camera.rotateLeft(90);
 
 
                         }
@@ -315,22 +313,22 @@ int main(int argc, char **argv) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Rendu des objets de la scene
-        Position pC = camera.getPosition();
+        //Position pC = camera.getPosition();
         Position pHero = hero.getPosition();
 
         int alphaHero = hero.getAngle();
 
         for (std::vector<Object3D *>::const_iterator it = Object3D::getSceneObjects().begin();
              it != Object3D::getSceneObjects().end(); it++) {
-            Position newp = (*it)->getPosition();
+            /*Position newp = (*it)->getPosition();
             newp.x -= pC.x;
             newp.x -= pC.y;
             newp.x -= pC.z;
             (*it)->setPosition(newp);
-            (*it)->addTranslation(pC.x, pC.y, pC.z);
+            (*it)->addTranslation(pC.x, pC.y, pC.z);*/
+            //(*it)->modelMatrix = (*it)->modelMatrix * camera.getViewMatrix() * (*it)->translationMatrix;
 
-
-            (*it)->draw();
+            (*it)->draw(camera.getViewMatrix());
         }
 
         // Update the display

@@ -82,7 +82,7 @@ Niveau::Niveau(const char* file){
 			fileNiveau >> z;
 			fileNiveau >> angle;
 			p = newPosition(x,y,z);
-			Ennemi e = Ennemi(i, p, angle, 5, 1, 10);
+			Ennemi e = Ennemi(i, p, angle, 1, 1, 10);
 			ennemis.push_back(e);
 		}
 
@@ -132,19 +132,16 @@ void Niveau::deleteEnnemi(int id){
 bool Niveau::distanceFromObject(Position p){
 	int c=0;
 	for (int i=0; i<murs.size(); i++){
-		Position pm = murs[i].getPosition();
-		pm.z -= 0.5;
-		if (distance(p, pm) < 0.51) c = 1;
+		
+		if (distance(p, murs[i].getPosition()) < 0.51) c = 1;
 	}
 	for (int i=0; i<mursAngles.size(); i++){
-		Position pm = mursAngles[i].getPosition();
-		pm.z -= 0.5;
-		if (distance(p, pm) < 0.51) c = 1;
+		
+		if (distance(p, mursAngles[i].getPosition()) < 0.51) c = 1;
 	}
 	for (int i=0; i<mursCDS.size(); i++){
-		Position pm = mursCDS[i].getPosition();
-		pm.z -= 0.5;
-		if (distance(p, pm) < 0.51) c = 1;
+		
+		if (distance(p, mursCDS[i].getPosition()) < 0.51) c = 1;
 	}
 	return (c==1);
 }

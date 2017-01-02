@@ -15,6 +15,7 @@
 #include <glimac/Image.hpp>
 #include <glimac/BBox.hpp>
 
+
 #include "Object3D.h"
 #include "TransformMatrix.h"
 
@@ -28,7 +29,7 @@ private:
 public:
     Cube3D();
     Cube3D(int type);
-    void draw();
+    void draw(glm::mat4 camera);
 };
 
 

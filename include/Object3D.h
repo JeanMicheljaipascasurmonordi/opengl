@@ -23,7 +23,7 @@ public:
     static std::vector<Object3D*> sceneObjects;
 public:
     Object3D();
-    virtual void draw() = 0;
+    virtual void draw(glm::mat4 camera) = 0;
 
     static const std::vector<Object3D*>& getSceneObjects() { return sceneObjects; }
 

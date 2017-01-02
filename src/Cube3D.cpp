@@ -389,7 +389,7 @@ Cube3D::Cube3D(int type){
 
 }
 
-void Cube3D::draw() {
+void Cube3D::draw(glm::mat4 camera) {
 
     /*********************************
     * HERE SHOULD COME THE RENDERING CODE
@@ -399,7 +399,7 @@ void Cube3D::draw() {
     projMatrix = glm::perspective<float>(glm::radians(70.f),1.0,0.1f,100.f);
     // Transformations
     modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-    glUniformMatrix4fv( uModelMatrixID, 1, GL_FALSE, glm::value_ptr(projMatrix * modelMatrix) );
+    glUniformMatrix4fv( uModelMatrixID, 1, GL_FALSE, glm::value_ptr(projMatrix * camera * modelMatrix) );
     // !!! 4fv !!!
 
     //Dessiner avec le VAO
