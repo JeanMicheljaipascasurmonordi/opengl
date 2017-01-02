@@ -75,6 +75,7 @@ int main(int argc, char **argv) {
 
     Mix_AllocateChannels(32);
     Mix_Chunk *cindyattack = Mix_LoadWAV("cindyattack.ogg");
+    Mix_Chunk *cindymove = Mix_LoadWAV("cindymove.ogg");
     if(cindyattack == NULL)
         cout << Mix_GetError() << endl;
 
@@ -160,6 +161,7 @@ int main(int argc, char **argv) {
 
         if (samePosition(hero.getPosition(), niveau.positionFin) && hero.getNbrFan() == niveau.getFanNeeded()) {
             cout << "niveau fini" << endl;
+            done = true;
         }
 
         for (int i = 0; i < niveau.loots.size(); i++) {
@@ -195,7 +197,7 @@ int main(int argc, char **argv) {
                 case SDL_KEYDOWN:
                     switch (e.key.keysym.sym) {
                         case SDLK_w: {
-                            Mix_PlayChannel(-1, cindyattack, 0);
+                            Mix_PlayChannel(1, cindymove, 0);
                             cout << "z" << std::endl;
                             Position p = hero.getPosition();
                             Position pCamera = camera.getPosition();
@@ -211,7 +213,7 @@ int main(int argc, char **argv) {
                         }
                             break;
                         case SDLK_s: {
-                            Mix_PlayChannel(-1, cindyattack, 0);
+                            Mix_PlayChannel(1, cindymove, 0);
                             cout << "s" << std::endl;
                             Position p = hero.getPosition();
                             double newz;
@@ -227,7 +229,7 @@ int main(int argc, char **argv) {
                         }
                             break;
                         case SDLK_a: {
-                            Mix_PlayChannel(-1, cindyattack, 0);
+                            Mix_PlayChannel(1, cindymove, 0);
                             cout << "q" << std::endl;
                             Position p = hero.getPosition();
                             double newx;
@@ -243,7 +245,7 @@ int main(int argc, char **argv) {
 
                             break;
                         case SDLK_d: {
-                            Mix_PlayChannel(-1, cindyattack, 0);
+                            Mix_PlayChannel(1, cindymove, 0);
                             cout << "d" << std::endl;
                             Position p = hero.getPosition();
                             Position pCamera = camera.getPosition();
@@ -259,7 +261,7 @@ int main(int argc, char **argv) {
 
                             break;
                         case SDLK_RIGHT: {
-                            Mix_PlayChannel(-1, cindyattack, 0);
+                            Mix_PlayChannel(1, cindymove, 0);
                             cout << "RIGHT" << std::endl;
                             int alphaH = camera.getAngle();
                             camera.setAngle(alphaH + 90);
@@ -267,7 +269,7 @@ int main(int argc, char **argv) {
 
                             break;
                         case SDLK_LEFT: {
-                            Mix_PlayChannel(-1, cindyattack, 0);
+                            Mix_PlayChannel(1, cindymove, 0);
                             cout << "LEFT" << std::endl;
                             int alphaH = hero.getAngle();
                             hero.setAngle(alphaH - 90);
@@ -277,7 +279,7 @@ int main(int argc, char **argv) {
 
                             break;
                         case SDLK_SPACE: {// Attaque
-                            Mix_PlayChannel(-1, cindyattack, 0);
+                            Mix_PlayChannel(3, cindyattack, 0);
                             cout << "espace" << std::endl;
                             for (int i=0; i < niveau.ennemis.size(); i++){                                
                                 if (abs(distance(hero.getPosition(), niveau.ennemis[i].getPosition())) < 2){
