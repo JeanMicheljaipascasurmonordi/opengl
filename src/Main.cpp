@@ -38,7 +38,7 @@ using namespace std;
 Hero hero;
 Hero camera;
 
-Niveau niveau = Niveau("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\niveaux\\niveautest.txt");
+Niveau niveau = Niveau("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/niveaux/niveautest.txt");
 //FreeflyCamera camera;
 
 
@@ -203,10 +203,12 @@ int main(int argc, char **argv) {
                             newz = p.z - 0.5;
                             p.z = newz;
                             pCamera.z = 0.5;
-
-
-                            hero.setPosition(p);
-                            camera.setPosition(pCamera);
+                            cout<<niveau.distanceFromObject(p)<<endl;
+                            if(niveau.distanceFromObject(p)){
+                                hero.setPosition(p);
+                                camera.setPosition(pCamera);
+                                //camera.moveFront(0.5);
+                            }
 
                         }
                             break;
@@ -220,9 +222,11 @@ int main(int argc, char **argv) {
                             newz = p.z + 0.5;
                             p.z = newz;
 
-
-                            hero.setPosition(p);
-                            camera.setPosition(pCamera);
+                            if(niveau.distanceFromObject(p)){
+                                hero.setPosition(p);
+                                camera.setPosition(pCamera);
+                                //camera.moveFront(-0.5); 
+                            }
 
                         }
                             break;
@@ -235,9 +239,11 @@ int main(int argc, char **argv) {
                             pCamera.x = 0.5;
                             newx = p.x - 0.5;
                             p.x = newx;
-
-                            hero.setPosition(p);
-                            camera.setPosition(pCamera);
+                            if(niveau.distanceFromObject(p)){
+                                hero.setPosition(p);
+                                camera.setPosition(pCamera);
+                                //camera.moveLeft(0.5);
+                            }
 
                         }
 
@@ -251,8 +257,11 @@ int main(int argc, char **argv) {
                             pCamera.x = -0.5;
                             newx = p.x + 0.5;
                             p.x = newx;
-                            camera.setPosition(pCamera);
-                            hero.setPosition(p);
+                            if(niveau.distanceFromObject(p)){
+                                camera.setPosition(pCamera);
+                                hero.setPosition(p);
+                                //camera.moveLeft(-0.5);
+                            }
 
 
                         }
@@ -261,8 +270,9 @@ int main(int argc, char **argv) {
                         case SDLK_RIGHT: {
                             Mix_PlayChannel(-1, cindyattack, 0);
                             cout << "RIGHT" << std::endl;
-                            int alphaH = camera.getAngle();
+                            int alphaH = hero.getAngle();
                             camera.setAngle(alphaH + 90);
+                            //camera.rotate(-90);
                         }
 
                             break;
@@ -271,6 +281,7 @@ int main(int argc, char **argv) {
                             cout << "LEFT" << std::endl;
                             int alphaH = hero.getAngle();
                             hero.setAngle(alphaH - 90);
+                            //camera.rotate(90);
 
 
                         }

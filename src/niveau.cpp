@@ -132,15 +132,21 @@ void Niveau::deleteEnnemi(int id){
 bool Niveau::distanceFromObject(Position p){
 	int c=0;
 	for (int i=0; i<murs.size(); i++){
-		if (distance(p, murs[i].getPosition()) < 1) c = 1;
+		Position pm = murs[i].getPosition();
+		pm.z -= 0.5;
+		if (distance(p, pm) < 0.51) c = 1;
 	}
 	for (int i=0; i<mursAngles.size(); i++){
-		if (distance(p, mursAngles[i].getPosition()) < 1) c = 1;
+		Position pm = mursAngles[i].getPosition();
+		pm.z -= 0.5;
+		if (distance(p, pm) < 0.51) c = 1;
 	}
 	for (int i=0; i<mursCDS.size(); i++){
-		if (distance(p, mursCDS[i].getPosition()) < 1) c = 1;
+		Position pm = mursCDS[i].getPosition();
+		pm.z -= 0.5;
+		if (distance(p, pm) < 0.51) c = 1;
 	}
-	return (c==0);
+	return (c==1);
 }
 
 

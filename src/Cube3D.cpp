@@ -24,7 +24,7 @@ struct Triangle{
 
 Cube3D::Cube3D(){
     std::unique_ptr<Image> image;
-    image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
+    image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/texturepack.png");
 
     if(image == NULL)
         std::cout << "erreur image" << std::endl;
@@ -154,7 +154,7 @@ Cube3D::Cube3D(int type){
 
     //image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/Cube.jpg");
 
-    image = loadImage("D:\\Sons\\CindySandersOnTheRoadToRouteOfDiamant\\opengl\\assets\\textures\\texturepack.png");
+    image = loadImage("C:/Users/Owen/Desktop/opengl projet/OPEN_GL/dungeonGL/assets/textures/texturepack.png");
 
     GLuint texture;
     glGenTextures(1, &texture);
